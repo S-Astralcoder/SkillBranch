@@ -1,0 +1,9 @@
+[project]
+name = "Skill-Branch"
+version = "0.1.0"
+description = "This is a web based application where you can track your skills in a structured way"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi[standard]>=0.139.2",
+]
