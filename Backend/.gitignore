@@ -14,3 +14,8 @@ _workspace
 # Runtime files
 
 __pycache__
+
+
+# Database
+
+database/
