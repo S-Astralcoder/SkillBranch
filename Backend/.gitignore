@@ -1,0 +1,16 @@
+# Virtual Environment
+.venv
+
+
+# Env
+.Env
+
+
+#workspace
+
+_workspace
+
+
+# Runtime files
+
+__pycache__
