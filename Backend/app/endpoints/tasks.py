@@ -28,7 +28,7 @@ task_router = APIRouter(prefix="/task", tags=["Task"])
 async def get_all_tasks(
     payload: TasksRequest,
     user: Annotated[User, Depends(get_current_active_user)],
-    db_session: Annotated[Session, Depends(get_database_session)],
+    db_session: Annotated[Session, Depends(get_database_session)], offset : int = 0 , limit : int | None = None
 ):
     require_project_for_task(
         project_id=payload.project_id,
@@ -41,6 +41,8 @@ async def get_all_tasks(
         skill_id=payload.skill_id,
         user_id=user.id,
         db_session=db_session,
+        offset=offset,
+        limit=limit
     )
 
 

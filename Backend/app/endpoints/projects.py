@@ -17,11 +17,11 @@ from app.utility.user_utility import get_current_active_user
 project_router = APIRouter(prefix="/project", tags=["Project"])
 
 @project_router.post("/projects")
-async def get_all_projects(payload : ProjectsRequest ,user : Annotated[User, Depends(get_current_active_user)], db_session : Annotated[Session ,Depends(get_database_session)]):
+async def get_all_projects(payload : ProjectsRequest ,user : Annotated[User, Depends(get_current_active_user)], db_session : Annotated[Session ,Depends(get_database_session)], offset : int = 0 , limit : int | None = None):
     if not get_skill_by_id(skill_id=payload.skill_id, user_id=user.id, db_session=db_session):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Given Skill doesn't exist")
 
-    query = select(Project).join(Skill, Project.skill_id == Skill.id).where(Skill.user_id == user.id, Skill.id == payload.skill_id)
+    query = select(Project).join(Skill, Project.skill_id == Skill.id).where(Skill.user_id == user.id, Skill.id == payload.skill_id).offset(offset=offset).limit(limit=limit)
     projects = db_session.scalars(query).all()
     return projects
 

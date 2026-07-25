@@ -13,9 +13,21 @@ class UserRequest(BaseModel):
     email : EmailStr
     password : str = Field(min_length=8, max_length=200)
 
+    def model_post_init(self, context: Any, /) -> None: # pyright: ignore
+        super().model_post_init(context)
+        self.username = self.username.strip()
+        self.email = self.email.lower().strip()
+        self.password = self.password.strip()
+
+
 class SkillCreateRequest(BaseModel):
     name : str
     description : str
+
+    def model_post_init(self, context: Any, /) -> None: # pyright: ignore
+        super().model_post_init(context)
+        self.name = self.name.strip()
+        self.description = self.description.strip()
 
 class SkillIdRequest(BaseModel):
     id : uuid.UUID
@@ -35,6 +47,11 @@ class CreateProject(ProjectsRequest):
     project_name : str
     description : str
 
+    def model_post_init(self, context: Any, /) -> None: # pyright: ignore
+        super().model_post_init(context)
+        self.project_name = self.project_name.strip()
+        self.description = self.description.strip()
+
 class ProjectUpdate(CreateProject, ProjectRequest):
     pass
 
@@ -51,6 +68,11 @@ class CreateTask(TasksRequest):
     task_name : str
     description : str
     deadline : datetime
+
+    def model_post_init(self, context: Any, /) -> None: # pyright: ignore
+        super().model_post_init(context)
+        self.task_name = self.task_name.strip()
+        self.description = self.description.strip()
 
 class UpdateTask(CreateTask, TaskRequest):
     pass

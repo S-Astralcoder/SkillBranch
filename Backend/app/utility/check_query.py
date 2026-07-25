@@ -112,7 +112,7 @@ def get_tasks_by_project(
     project_id: UUID,
     skill_id: UUID,
     user_id: UUID,
-    db_session: Session,
+    db_session: Session, offset : int, limit : int | None
 ) -> list[Task]:
     query = (
         select(Task)
@@ -123,7 +123,7 @@ def get_tasks_by_project(
             Project.id == project_id,
             Skill.id == skill_id,
         )
-    )
+    ).offset(offset=offset).limit(limit=limit)
     return list(db_session.scalars(query).all())
 
 
