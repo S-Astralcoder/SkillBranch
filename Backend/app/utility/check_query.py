@@ -4,7 +4,7 @@ from uuid import UUID
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.models import Project, Skill
+from app.models import Project, Skill, Task
 
 
 def get_skill_by_id(
@@ -64,4 +64,12 @@ def get_project_by_name(
             Project.project_name == project_name,
         )
     )
+    return db_session.scalar(query)
+
+def get_task_by_id(task_id : UUID, project_id : UUID, skill_id : UUID, user_id: UUID, db_session : Session):
+    query = select(Task).join(Project, Project.id == Task.project_id).join(Skill, Skill.id == Project.skill_id).where(Skill.user_id == user_id, Task.id == task_id, Project.id == project_id, Skill.id == skill_id)
+    return db_session.scalar(query)
+
+def get_task_by_name(task_name : str, project_id : UUID, skill_id : UUID, user_id: UUID, db_session : Session):
+    query = select(Task).join(Project, Project.id == Task.project_id).join(Skill, Skill.id == Project.skill_id).where(Skill.user_id == user_id, Task.task_name == task_name, Project.id == project_id, Skill.id == skill_id)
     return db_session.scalar(query)

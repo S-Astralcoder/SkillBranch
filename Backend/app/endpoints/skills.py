@@ -22,11 +22,14 @@ async def get_all_skills(user : Annotated[User, Depends(get_current_active_user)
 
 @skill_router.post("/skill")
 async def get_skill(skill_data : SkillIdRequest, user : Annotated[User, Depends(get_current_active_user)], db_session : Annotated[Session ,Depends(get_database_session)]):
-    return get_skill_by_id(
+    skill = get_skill_by_id(
         skill_id=skill_data.id,
         user_id=user.id,
         db_session=db_session,
     )
+    if not skill:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="The given skill doesn't exists")
+    return skill
 
 @skill_router.post("/create_skill")
 async def create_skill(skill_data : SkillCreateRequest, user : Annotated[User, Depends(get_current_active_user)], db_session : Annotated[Session ,Depends(get_database_session)]):

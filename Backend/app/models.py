@@ -89,7 +89,8 @@ class Task(Base):
     __tablename__ = "task"
     id : Mapped[UUID] = mapped_column(Uuid, primary_key=True, default=uuid4)
     task_name : Mapped[str] = mapped_column(String(400), nullable=False)
-    completed : Mapped[bool] = mapped_column(Boolean, nullable=False)
+    description : Mapped[str] = mapped_column(String(1000), nullable=False)
+    completed : Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
 
     deadline : Mapped[datetime.datetime] = mapped_column(DateTime)
     created_at : Mapped[datetime.datetime] = mapped_column(

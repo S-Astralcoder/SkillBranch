@@ -1,0 +1,38 @@
+name: Quality Check
+
+on:
+  push:
+    branches: ["workspace", "main"]
+  pull_request:
+    branches: ["workspace", "main"]
+
+jobs:
+  check-quality:
+    name: Check code quality
+    runs-on: windows-latest
+
+    steps:
+      # checkout of repo
+      - name: checkout repo
+        uses: actions/checkout@v4
+
+      # Install UV package manager
+      - name: install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+          enable-cache: true
+
+      # installs required dependencies
+      - name: Install dependencies
+        run: uv sync --locked
+
+      # ruff check
+      - name: ruff check
+        run: uv run ruff check
+
+      # pyright
+      - name: pyright check
+        run: uv run pyright
+      
+      

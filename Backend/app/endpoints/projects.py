@@ -30,12 +30,15 @@ async def get_project(payload : ProjectRequest ,user : Annotated[User, Depends(g
     if not get_skill_by_id(skill_id=payload.skill_id, user_id=user.id, db_session=db_session):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Given Skill doesn't exist")
 
-    return get_project_by_id(
+    project = get_project_by_id(
         project_id=payload.project_id,
         skill_id=payload.skill_id,
         user_id=user.id,
         db_session=db_session,
     )
+    if not project:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="The given project doesn't exists")
+    return project
 
 @project_router.post("/create_project")
 async def create_project( payload : CreateProject ,user : Annotated[User, Depends(get_current_active_user)], db_session : Annotated[Session ,Depends(get_database_session)]):

@@ -1,3 +1,4 @@
+from datetime import datetime
 import uuid
 
 from pydantic import BaseModel, EmailStr, Field
@@ -38,3 +39,21 @@ class ProjectUpdate(CreateProject, ProjectRequest):
     pass
 
 
+
+class TasksRequest(BaseModel):
+    skill_id : uuid.UUID
+    project_id : uuid.UUID
+
+class TaskRequest(TasksRequest):
+    task_id : uuid.UUID
+
+class CreateTask(TasksRequest):
+    task_name : str
+    description : str
+    deadline : datetime
+
+class UpdateTask(CreateTask, TaskRequest):
+    pass
+
+class ToggleTaskRequest(TaskRequest):
+    toggle : bool
