@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import datetime
-from uuid import UUID
-from sqlalchemy import Boolean, Date, DateTime, ForeignKey, Integer, String
+from uuid import UUID, uuid4
+from sqlalchemy import Boolean, DateTime, ForeignKey, String, Uuid
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 
@@ -12,22 +12,36 @@ class Base(DeclarativeBase):
 class User(Base):
     __tablename__ = "user"
 
-    id : Mapped[UUID] = mapped_column(Integer, primary_key=True)
-    username : Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
+    id : Mapped[UUID] = mapped_column(Uuid, primary_key=True, default=uuid4)
+    username : Mapped[str] = mapped_column(String(100), nullable=False)
+    email : Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
     password : Mapped[str] = mapped_column(String(200), nullable=False)
     
-    created_at : Mapped[Date] = mapped_column(Date, default=datetime.date, nullable=False)
+    created_at : Mapped[datetime.datetime] = mapped_column(
+        DateTime,
+        default=datetime.datetime.now,
+        nullable=False,
+    )
 
     skills : Mapped[list[Skill]] = relationship(back_populates="user", cascade="all, delete-orphan")
 
 class Skill(Base):
     __tablename__ = "skill"
 
-    id : Mapped[UUID] = mapped_column(Integer, primary_key=True)
+    id : Mapped[UUID] = mapped_column(Uuid, primary_key=True, default=uuid4)
     skill_name : Mapped[str] = mapped_column(String(400), nullable=False)
     description : Mapped[str] = mapped_column(String(1000), nullable=False)
-    created_at : Mapped[Date] = mapped_column(Date, default=datetime.date, nullable=False)
-    updated_at : Mapped[Date] = mapped_column(Date, default=datetime.date, nullable=False)
+    created_at : Mapped[datetime.datetime] = mapped_column(
+        DateTime,
+        default=datetime.datetime.now,
+        nullable=False,
+    )
+    updated_at : Mapped[datetime.datetime] = mapped_column(
+        DateTime,
+        default=datetime.datetime.now,
+        onupdate=datetime.datetime.now,
+        nullable=False,
+    )
 
     user_id : Mapped[UUID] = mapped_column(ForeignKey("user.id"))
 
@@ -38,11 +52,20 @@ class Skill(Base):
 class Project(Base):
     __tablename__ = "project"
 
-    id : Mapped[UUID] = mapped_column(Integer, primary_key=True)
+    id : Mapped[UUID] = mapped_column(Uuid, primary_key=True, default=uuid4)
     project_name : Mapped[str] = mapped_column(String(400), nullable=False)
     description : Mapped[str] = mapped_column(String(1000), nullable=False)
-    created_at : Mapped[Date] = mapped_column(Date, default=datetime.date, nullable=False)
-    updated_at : Mapped[Date] = mapped_column(Date, default=datetime.date, nullable=False)
+    created_at : Mapped[datetime.datetime] = mapped_column(
+        DateTime,
+        default=datetime.datetime.now,
+        nullable=False,
+    )
+    updated_at : Mapped[datetime.datetime] = mapped_column(
+        DateTime,
+        default=datetime.datetime.now,
+        onupdate=datetime.datetime.now,
+        nullable=False,
+    )
 
     skill_id : Mapped[UUID] = mapped_column(ForeignKey("skill.id"))
 
@@ -53,13 +76,22 @@ class Project(Base):
 
 class Task(Base):
     __tablename__ = "task"
-    id : Mapped[UUID] = mapped_column(Integer, primary_key=True)
+    id : Mapped[UUID] = mapped_column(Uuid, primary_key=True, default=uuid4)
     task_name : Mapped[str] = mapped_column(String(400), nullable=False)
     completed : Mapped[bool] = mapped_column(Boolean, nullable=False)
 
-    deadline : Mapped[DateTime] = mapped_column(DateTime)
-    created_at : Mapped[Date] = mapped_column(Date, default=datetime.date, nullable=False)
-    updated_at : Mapped[Date] = mapped_column(Date, default=datetime.date, nullable=False)
+    deadline : Mapped[datetime.datetime] = mapped_column(DateTime)
+    created_at : Mapped[datetime.datetime] = mapped_column(
+        DateTime,
+        default=datetime.datetime.now,
+        nullable=False,
+    )
+    updated_at : Mapped[datetime.datetime] = mapped_column(
+        DateTime,
+        default=datetime.datetime.now,
+        onupdate=datetime.datetime.now,
+        nullable=False,
+    )
 
     project_id : Mapped[UUID] = mapped_column(ForeignKey("project.id"))
 
