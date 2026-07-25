@@ -1,7 +1,7 @@
 # External
 from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 import re
 
@@ -16,10 +16,6 @@ from app.utility.user_utility import search_user_data
 
 user_router = APIRouter(prefix="/user", tags=["User"])
 
-
-authorization = OAuth2PasswordBearer(tokenUrl="/user/login")
-
-
 @user_router.post("/login")
 async def login(form_data : Annotated[OAuth2PasswordRequestForm, Depends()], db_session : Annotated[Session, Depends(get_database_session)]):
     if  not re.match(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", form_data.username.strip()):
@@ -30,7 +26,7 @@ async def login(form_data : Annotated[OAuth2PasswordRequestForm, Depends()], db_
     if not verify_password(plain_password=form_data.password, hashed_password=user_data.password):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid Password")
     token = generate_jwt_token(email=user_data.email)
-    return Token(token=token)
+    return Token(access_token=token)
     
 @user_router.post("/signup")
 async def signup(user_data : UserRequest, db_session : Annotated[Session, Depends(get_database_session)]) -> Token:
@@ -40,7 +36,7 @@ async def signup(user_data : UserRequest, db_session : Annotated[Session, Depend
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="The User Already Exists")
     db_session.add(user)
     token = generate_jwt_token(email=user.email)
-    return Token(token=token)
+    return Token(access_token=token)
 
 
 

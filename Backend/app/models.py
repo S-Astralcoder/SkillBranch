@@ -7,7 +7,9 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 
 class Base(DeclarativeBase):
-    pass
+    def __repr__(self):
+        cols = ", ".join(f"{k}={v!r}" for k, v in self.__dict__.items() if not k.startswith("_"))
+        return f"<{self.__class__.__name__}({cols})>"
 
 class User(Base):
     __tablename__ = "user"
