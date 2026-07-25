@@ -80,6 +80,10 @@ class Project(Base):
 
     tasks : Mapped[list[Task]] = relationship(back_populates="project")
 
+    __table_args__ = (
+        UniqueConstraint("skill_id", "project_name"),
+    )
+
 
 class Task(Base):
     __tablename__ = "task"
@@ -104,6 +108,9 @@ class Task(Base):
 
     project : Mapped[Project] = relationship(back_populates="tasks")
 
+    __table_args__ = (
+        UniqueConstraint("project_id", "task_name"),
+    )
 
 
 
