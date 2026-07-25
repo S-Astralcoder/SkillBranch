@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import datetime
 from uuid import UUID, uuid4
-from sqlalchemy import Boolean, DateTime, ForeignKey, String, Uuid
+from sqlalchemy import Boolean, DateTime, ForeignKey, String, UniqueConstraint, Uuid
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 
@@ -50,6 +50,11 @@ class Skill(Base):
     user : Mapped[User] = relationship(back_populates="skills")
 
     projects : Mapped[list[Project]] = relationship(back_populates="skill")
+
+
+    __table_args__ = (
+        UniqueConstraint("user_id", "skill_name"),
+    )
 
 class Project(Base):
     __tablename__ = "project"

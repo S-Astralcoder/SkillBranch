@@ -15,11 +15,16 @@ authorization = OAuth2PasswordBearer(tokenUrl="/user/login")
 
 
 def search_user_data(email : str, db_session : Session) -> User:
-    user_data = db_session.execute((select(User).where(User.email == email))).fetchone()
+    user_data = db_session.scalar((select(User).where(User.email == email)))
     if not user_data:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User Doesn't Exists")
-    return user_data[0]
+    return user_data
 
+def does_user_exists(email : str, db_session : Session) -> bool:
+    user_data = db_session.scalar((select(User).where(User.email == email)))
+    if user_data:
+        return True
+    return False 
 
 
 def get_current_active_user(token : Annotated[str, Depends(authorization)], db_session : Annotated[Session, Depends(get_database_session)]):

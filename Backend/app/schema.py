@@ -10,3 +10,7 @@ class UserRequest(BaseModel):
     email : EmailStr
     password : str = Field(min_length=8, max_length=200)
 
+class SkillCreateRequest(BaseModel):
+    name : str
+    description : str
+    
