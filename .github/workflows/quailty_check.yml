@@ -10,6 +10,9 @@ jobs:
   check-quality:
     name: Check code quality
     runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: ./Backend
 
     steps:
       # checkout of repo
