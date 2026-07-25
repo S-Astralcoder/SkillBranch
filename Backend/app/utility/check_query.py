@@ -1,27 +1,67 @@
 
-import uuid
-from sqlalchemy.orm import Session, joinedload
+from uuid import UUID
+
 from sqlalchemy import select
+from sqlalchemy.orm import Session
 
 from app.models import Project, Skill
 
 
-def check_if_skill_name_exists(skill_name : str, user_id : uuid.UUID ,db_session : Session):
-    result = db_session.scalar(select(Skill).where(Skill.user_id == user_id, Skill.skill_name == skill_name))
-    if result:
-        return result.id
-    return False
+def get_skill_by_id(
+    skill_id: UUID,
+    user_id: UUID,
+    db_session: Session,
+) -> Skill | None:
+    query = select(Skill).where(
+        Skill.id == skill_id,
+        Skill.user_id == user_id,
+    )
+    return db_session.scalar(query)
 
-def check_if_project_name_already_exists(project_name : str ,skill_id : uuid.UUID, user_id : uuid.UUID , db_session : Session):
-    query = select(Project).join(Skill, Project.skill_id == Skill.id).where(Skill.user_id == user_id, Skill.id == skill_id, Project.project_name == project_name)
-    project = db_session.scalar(query)
-    if project:
-        return project.id
-    return False
 
-def check_if_skill_exists( skill_id : uuid.UUID, user_id : uuid.UUID , db_session : Session):
-    query = select(Skill).options(joinedload(Skill.projects)).where(Skill.id == skill_id, Skill.user_id == user_id)
-    skill = db_session.scalar(query)
-    if skill:
-        return skill
-    return False
+def get_skill_by_name(
+    skill_name: str,
+    user_id: UUID,
+    db_session: Session,
+) -> Skill | None:
+    query = select(Skill).where(
+        Skill.user_id == user_id,
+        Skill.skill_name == skill_name,
+    )
+    return db_session.scalar(query)
+
+
+def get_project_by_id(
+    project_id: UUID,
+    skill_id: UUID,
+    user_id: UUID,
+    db_session: Session,
+) -> Project | None:
+    query = (
+        select(Project)
+        .join(Skill, Project.skill_id == Skill.id)
+        .where(
+            Skill.user_id == user_id,
+            Skill.id == skill_id,
+            Project.id == project_id,
+        )
+    )
+    return db_session.scalar(query)
+
+
+def get_project_by_name(
+    project_name: str,
+    skill_id: UUID,
+    user_id: UUID,
+    db_session: Session,
+) -> Project | None:
+    query = (
+        select(Project)
+        .join(Skill, Project.skill_id == Skill.id)
+        .where(
+            Skill.user_id == user_id,
+            Skill.id == skill_id,
+            Project.project_name == project_name,
+        )
+    )
+    return db_session.scalar(query)

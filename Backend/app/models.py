@@ -49,7 +49,7 @@ class Skill(Base):
 
     user : Mapped[User] = relationship(back_populates="skills")
 
-    projects : Mapped[list[Project]] = relationship(back_populates="skill")
+    projects : Mapped[list[Project]] = relationship(back_populates="skill", cascade="all, delete-orphan")
 
 
     __table_args__ = (
@@ -78,7 +78,7 @@ class Project(Base):
 
     skill : Mapped[Skill] = relationship(back_populates="projects")
 
-    tasks : Mapped[list[Task]] = relationship(back_populates="project")
+    tasks : Mapped[list[Task]] = relationship(back_populates="project", cascade="all, delete-orphan")
 
     __table_args__ = (
         UniqueConstraint("skill_id", "project_name"),
