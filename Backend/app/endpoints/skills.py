@@ -1,4 +1,6 @@
+import uuid
 from typing import Annotated
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.orm import Session, joinedload
@@ -9,21 +11,19 @@ from app.schema import SkillCreateRequest, SkillIdRequest, SkillUpdateRequest
 from app.utility.check_query import get_skill_by_id, get_skill_by_name
 from app.utility.user_utility import get_current_active_user
 
-
-
 skill_router = APIRouter(prefix="/skill", tags=["Skill"])
 
 
-@skill_router.post("/skills")
+@skill_router.get("/skills")
 async def get_all_skills(user : Annotated[User, Depends(get_current_active_user)], db_session : Annotated[Session ,Depends(get_database_session)], offset : int = 0 , limit : int | None = None):
     get_skills_query = select(Skill).where(Skill.user_id == user.id).offset(offset=offset).limit(limit=limit)
     skills_data = db_session.scalars(get_skills_query).all()
     return skills_data
 
-@skill_router.post("/skill")
-async def get_skill(skill_data : SkillIdRequest, user : Annotated[User, Depends(get_current_active_user)], db_session : Annotated[Session ,Depends(get_database_session)]):
+@skill_router.get("/skill/{skill_id}")
+async def get_skill(skill_id : uuid.UUID, user : Annotated[User, Depends(get_current_active_user)], db_session : Annotated[Session ,Depends(get_database_session)]):
     skill = get_skill_by_id(
-        skill_id=skill_data.id,
+        skill_id=skill_id,
         user_id=user.id,
         db_session=db_session,
     )

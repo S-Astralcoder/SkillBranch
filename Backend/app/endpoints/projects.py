@@ -1,11 +1,13 @@
+import uuid
 from typing import Annotated
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.database import get_database_session
 from app.models import Project, Skill, User
-from app.schema import CreateProject, ProjectRequest, ProjectUpdate, ProjectsRequest
+from app.schema import CreateProject, ProjectRequest, ProjectUpdate
 from app.utility.check_query import (
     get_project_by_id,
     get_project_by_name,
@@ -13,26 +15,25 @@ from app.utility.check_query import (
 )
 from app.utility.user_utility import get_current_active_user
 
-
 project_router = APIRouter(prefix="/project", tags=["Project"])
 
-@project_router.post("/projects")
-async def get_all_projects(payload : ProjectsRequest ,user : Annotated[User, Depends(get_current_active_user)], db_session : Annotated[Session ,Depends(get_database_session)], offset : int = 0 , limit : int | None = None):
-    if not get_skill_by_id(skill_id=payload.skill_id, user_id=user.id, db_session=db_session):
+@project_router.get("/projects/{skill_id}")
+async def get_all_projects(skill_id : uuid.UUID ,user : Annotated[User, Depends(get_current_active_user)], db_session : Annotated[Session ,Depends(get_database_session)], offset : int = 0 , limit : int | None = None):
+    if not get_skill_by_id(skill_id=skill_id, user_id=user.id, db_session=db_session):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Given Skill doesn't exist")
 
-    query = select(Project).join(Skill, Project.skill_id == Skill.id).where(Skill.user_id == user.id, Skill.id == payload.skill_id).offset(offset=offset).limit(limit=limit)
+    query = select(Project).join(Skill, Project.skill_id == Skill.id).where(Skill.user_id == user.id, Skill.id == skill_id).offset(offset=offset).limit(limit=limit)
     projects = db_session.scalars(query).all()
     return projects
 
-@project_router.post("/project")
-async def get_project(payload : ProjectRequest ,user : Annotated[User, Depends(get_current_active_user)], db_session : Annotated[Session ,Depends(get_database_session)]):
-    if not get_skill_by_id(skill_id=payload.skill_id, user_id=user.id, db_session=db_session):
+@project_router.get("/project/{skill_id}/{project_id}")
+async def get_project(skill_id : uuid.UUID, project_id : uuid.UUID ,user : Annotated[User, Depends(get_current_active_user)], db_session : Annotated[Session ,Depends(get_database_session)]):
+    if not get_skill_by_id(skill_id=skill_id, user_id=user.id, db_session=db_session):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Given Skill doesn't exist")
 
     project = get_project_by_id(
-        project_id=payload.project_id,
-        skill_id=payload.skill_id,
+        project_id=project_id,
+        skill_id=skill_id,
         user_id=user.id,
         db_session=db_session,
     )

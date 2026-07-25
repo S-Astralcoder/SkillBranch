@@ -1,3 +1,4 @@
+import uuid
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -8,7 +9,6 @@ from app.models import Task, User
 from app.schema import (
     CreateTask,
     TaskRequest,
-    TasksRequest,
     ToggleTaskRequest,
     UpdateTask,
 )
@@ -20,25 +20,25 @@ from app.utility.check_query import (
 from app.utility.task_utility import require_project_for_task, require_task_by_id
 from app.utility.user_utility import get_current_active_user
 
-
 task_router = APIRouter(prefix="/task", tags=["Task"])
 
 
-@task_router.post("/tasks")
+@task_router.get("/tasks/{skill_id}/{project_id}")
 async def get_all_tasks(
-    payload: TasksRequest,
+    skill_id: uuid.UUID,
+    project_id: uuid.UUID,
     user: Annotated[User, Depends(get_current_active_user)],
     db_session: Annotated[Session, Depends(get_database_session)], offset : int = 0 , limit : int | None = None
 ):
     require_project_for_task(
-        project_id=payload.project_id,
-        skill_id=payload.skill_id,
+        project_id=project_id,
+        skill_id=skill_id,
         user_id=user.id,
         db_session=db_session,
     )
     return get_tasks_by_project(
-        project_id=payload.project_id,
-        skill_id=payload.skill_id,
+        project_id=project_id,
+        skill_id=skill_id,
         user_id=user.id,
         db_session=db_session,
         offset=offset,
@@ -46,22 +46,24 @@ async def get_all_tasks(
     )
 
 
-@task_router.post("/task")
+@task_router.get("/task/{skill_id}/{project_id}/{task_id}")
 async def get_task(
-    payload: TaskRequest,
+    skill_id: uuid.UUID,
+    project_id: uuid.UUID,
+    task_id: uuid.UUID,
     user: Annotated[User, Depends(get_current_active_user)],
     db_session: Annotated[Session, Depends(get_database_session)],
 ):
     require_project_for_task(
-        project_id=payload.project_id,
-        skill_id=payload.skill_id,
+        project_id=project_id,
+        skill_id=skill_id,
         user_id=user.id,
         db_session=db_session,
     )
     return require_task_by_id(
-        task_id=payload.task_id,
-        project_id=payload.project_id,
-        skill_id=payload.skill_id,
+        task_id=task_id,
+        project_id=project_id,
+        skill_id=skill_id,
         user_id=user.id,
         db_session=db_session,
     )
