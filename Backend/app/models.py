@@ -25,7 +25,7 @@ class User(Base):
         nullable=False,
     )
 
-    skills : Mapped[list[Skill]] = relationship(back_populates="user", cascade="all, delete-orphan")
+    skills : Mapped[list[Skill]] = relationship(back_populates="user", cascade="all, delete-orphan", passive_deletes=True)
 
 class Skill(Base):
     __tablename__ = "skill"
@@ -45,11 +45,11 @@ class Skill(Base):
         nullable=False,
     )
 
-    user_id : Mapped[UUID] = mapped_column(ForeignKey("user.id"))
+    user_id : Mapped[UUID] = mapped_column(ForeignKey("user.id", ondelete="CASCADE", onupdate="CASCADE"))
 
     user : Mapped[User] = relationship(back_populates="skills")
 
-    projects : Mapped[list[Project]] = relationship(back_populates="skill", cascade="all, delete-orphan")
+    projects : Mapped[list[Project]] = relationship(back_populates="skill", cascade="all, delete-orphan", passive_deletes=True)
 
 
     __table_args__ = (
@@ -74,11 +74,11 @@ class Project(Base):
         nullable=False,
     )
 
-    skill_id : Mapped[UUID] = mapped_column(ForeignKey("skill.id"))
+    skill_id : Mapped[UUID] = mapped_column(ForeignKey("skill.id" , ondelete="CASCADE", onupdate="CASCADE"))
 
     skill : Mapped[Skill] = relationship(back_populates="projects")
 
-    tasks : Mapped[list[Task]] = relationship(back_populates="project", cascade="all, delete-orphan")
+    tasks : Mapped[list[Task]] = relationship(back_populates="project", cascade="all, delete-orphan", passive_deletes=True)
 
     __table_args__ = (
         UniqueConstraint("skill_id", "project_name"),
@@ -105,7 +105,7 @@ class Task(Base):
         nullable=False,
     )
 
-    project_id : Mapped[UUID] = mapped_column(ForeignKey("project.id"))
+    project_id : Mapped[UUID] = mapped_column(ForeignKey("project.id" , ondelete="CASCADE", onupdate="CASCADE"))
 
     project : Mapped[Project] = relationship(back_populates="tasks")
 

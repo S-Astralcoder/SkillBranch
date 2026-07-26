@@ -4,6 +4,7 @@
     "python.terminal.useEnvFile": true,
     "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
     "cSpell.words": [
+        "blazebuster",
         "onupdate",
         "passwordhash",
         "pyjwt",

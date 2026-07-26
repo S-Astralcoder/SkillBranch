@@ -35,7 +35,7 @@ async def login(
     return Token(access_token=token)
 
 
-@user_router.post("/signup")
+@user_router.post("/signup", status_code=201)
 async def signup(
     user_data: UserRequest,
     db_session: Annotated[Session, Depends(get_database_session)],

@@ -12,7 +12,7 @@ class Token(BaseModel):
 
 class UserRequest(BaseModel):
     username : str = Field(min_length=1, max_length=100)
-    email : EmailStr
+    email : EmailStr = Field(min_length=6, max_length=200)
     password : str = Field(min_length=8, max_length=200)
 
     def model_post_init(self, context: Any, /) -> None: # pyright: ignore
