@@ -1,9 +1,6 @@
 from sqlalchemy import create_engine, event
 from sqlalchemy.orm import Session
 
-
-# Internal
-
 from app.environment import settings
 from app.models import Base
 

@@ -141,7 +141,7 @@ def get_tasks_ordered_by_deadline(
         select(Task)
         .join(Project, Project.id == Task.project_id)
         .join(Skill, Skill.id == Project.skill_id)
-        .where(Skill.user_id == user_id, Task.completed == False)  # noqa
+        .where(Skill.user_id == user_id, Task.completed == False)
         .order_by(Task.deadline.asc())
     )
     return list(db_session.scalars(query).all())

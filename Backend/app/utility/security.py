@@ -1,12 +1,11 @@
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import Any
 
-from fastapi import HTTPException, status
 import jwt
+from fastapi import HTTPException, status
 from pwdlib import PasswordHash
 
 from app.environment import settings
-
 
 passwordhash = PasswordHash.recommended()
 
@@ -26,7 +25,7 @@ def generate_jwt_token(email: str) -> str:
         or settings.EXPIRATION_HOUR
         or settings.EXPIRATION_DAY
     ):
-        expiration_date = datetime.now(timezone.utc) + timedelta(
+        expiration_date = datetime.now(UTC) + timedelta(
             minutes=settings.EXPIRATION_MINUTE,
             hours=settings.EXPIRATION_HOUR,
             days=settings.EXPIRATION_DAY,
