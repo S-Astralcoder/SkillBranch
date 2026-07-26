@@ -89,7 +89,7 @@ async def create_task(
         db_session=db_session,
     ):
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
+            status_code=status.HTTP_306_RESERVED,
             detail="The given task already exists",
         )
 
@@ -125,7 +125,7 @@ async def update_task(
     )
     if task_with_name and task_with_name.id != payload.task_id:
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
+            status_code=status.HTTP_306_RESERVED,
             detail="The given task already exists",
         )
 

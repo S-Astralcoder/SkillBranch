@@ -52,7 +52,7 @@ async def create_project( payload : CreateProject ,user : Annotated[User, Depend
         user_id=user.id,
         db_session=db_session,
     ):
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="The given project name already exists")
+        raise HTTPException(status_code=status.HTTP_306_RESERVED, detail="The given project name already exists")
     project = Project(project_name=payload.project_name, description=payload.description, skill_id=skill.id)
     db_session.add(project)
     db_session.flush()
@@ -79,7 +79,7 @@ async def update_project(payload : ProjectUpdate ,user : Annotated[User, Depends
         db_session=db_session,
     )
     if project_with_name and project_with_name.id != project.id:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="The given project name already exists")
+        raise HTTPException(status_code=status.HTTP_306_RESERVED, detail="The given project name already exists")
     
     project.project_name = payload.project_name
     project.description = payload.description
