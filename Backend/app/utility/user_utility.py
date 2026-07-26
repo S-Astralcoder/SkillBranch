@@ -44,10 +44,10 @@ def get_current_active_user(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid JWT Token",
         )
-    email = jwt_decoded_data.get("sub") # pyright: ignore
+    email = jwt_decoded_data.get("sub")  # pyright: ignore
     if not email:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="This jwt token doesn't contain email",
         )
-    return require_user_by_email(email=email, db_session=db_session) # pyright: ignore
+    return require_user_by_email(email=email, db_session=db_session)  # pyright: ignore

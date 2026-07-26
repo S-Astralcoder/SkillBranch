@@ -8,7 +8,11 @@ from sqlalchemy.orm import Session
 from app.database import get_database_session
 from app.models import User
 from app.schema import Token, UserRequest
-from app.utility.security import generate_jwt_token, get_hashed_password, verify_password
+from app.utility.security import (
+    generate_jwt_token,
+    get_hashed_password,
+    verify_password,
+)
 from app.utility.user_utility import normalize_email, require_user_by_email, user_exists
 
 user_router = APIRouter(prefix="/user", tags=["User"])
@@ -26,7 +30,9 @@ async def login(
             detail="The Username field should contain email address",
         )
     user_data = require_user_by_email(email=email, db_session=db_session)
-    if not verify_password(plain_password=form_data.password, hashed_password=user_data.password):
+    if not verify_password(
+        plain_password=form_data.password, hashed_password=user_data.password
+    ):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid Password",
@@ -55,4 +61,3 @@ async def signup(
     db_session.add(user)
     token = generate_jwt_token(email=user.email)
     return Token(access_token=token)
-

@@ -23,9 +23,7 @@ def create_user_with_resources(
     }
     signup_response = client.post("/user/signup", json=test_user)
     assert signup_response.status_code == 201
-    headers = {
-        "Authorization": f"Bearer {signup_response.json()['access_token']}"
-    }
+    headers = {"Authorization": f"Bearer {signup_response.json()['access_token']}"}
 
     def request(method: str, path: str, json: dict | None = None):
         response = client.request(method, path, json=json, headers=headers)
@@ -59,9 +57,7 @@ def create_user_with_resources(
                 "project_id": project["id"],
                 "task_name": f"{name}-task-{unique_value}",
                 "description": f"{name} task",
-                "deadline": (
-                    datetime.now(UTC) + timedelta(days=index + 1)
-                ).isoformat(),
+                "deadline": (datetime.now(UTC) + timedelta(days=index + 1)).isoformat(),
             },
         )
         resources.append({"skill": skill, "project": project, "task": task})
@@ -78,6 +74,7 @@ def test_crud_workflow_from_skills_to_tasks():
     )
 
     try:
+
         def request(method: str, path: str, json: dict | None = None):
             response = client.request(
                 method,
@@ -217,9 +214,7 @@ def test_crud_workflow_from_skills_to_tasks():
         assert request("GET", "/skill/skills") == []
     finally:
         with Session(engine) as session:
-            user = session.scalar(
-                select(User).where(User.email == test_user["email"])
-            )
+            user = session.scalar(select(User).where(User.email == test_user["email"]))
             if user is not None:
                 session.delete(user)
                 session.commit()

@@ -21,8 +21,16 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 
 def generate_jwt_token(email: str) -> str:
     payload: dict[str, Any] = {"sub": email}
-    if settings.EXPIRATION_MINUTE or settings.EXPIRATION_HOUR or settings.EXPIRATION_DAY:
-        expiration_date = datetime.now(timezone.utc) + timedelta(minutes=settings.EXPIRATION_MINUTE, hours=settings.EXPIRATION_HOUR, days=settings.EXPIRATION_DAY)
+    if (
+        settings.EXPIRATION_MINUTE
+        or settings.EXPIRATION_HOUR
+        or settings.EXPIRATION_DAY
+    ):
+        expiration_date = datetime.now(timezone.utc) + timedelta(
+            minutes=settings.EXPIRATION_MINUTE,
+            hours=settings.EXPIRATION_HOUR,
+            days=settings.EXPIRATION_DAY,
+        )
         payload["exp"] = expiration_date
     return jwt.encode(
         payload=payload,

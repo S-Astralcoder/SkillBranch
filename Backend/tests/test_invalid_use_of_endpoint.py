@@ -23,9 +23,7 @@ def create_test_user(unique_value: str) -> dict[str, str]:
 def signup_and_get_headers(test_user: dict[str, str]) -> dict[str, str]:
     signup_response = client.post("/user/signup", json=test_user)
     assert signup_response.status_code == 201
-    return {
-        "Authorization": f"Bearer {signup_response.json()['access_token']}"
-    }
+    return {"Authorization": f"Bearer {signup_response.json()['access_token']}"}
 
 
 def request(
@@ -78,9 +76,7 @@ def create_tree(
             "project_id": project["id"],
             "task_name": f"{name}-task-{unique_value}",
             "description": f"{name} task",
-            "deadline": (
-                datetime.now(UTC) + timedelta(days=1)
-            ).isoformat(),
+            "deadline": (datetime.now(UTC) + timedelta(days=1)).isoformat(),
         },
     ).json()
     created_ids["tasks"].append(UUID(task["id"]))
@@ -101,10 +97,7 @@ def assert_malformed_ids_rejected(
         ),
         (
             "GET",
-            (
-                f"/task/task/{tree['skill']['id']}/"
-                f"{tree['project']['id']}/not-a-uuid"
-            ),
+            (f"/task/task/{tree['skill']['id']}/{tree['project']['id']}/not-a-uuid"),
             None,
         ),
         ("PUT", "/skill/delete_skill", {"id": "not-a-uuid"}),
@@ -164,18 +157,12 @@ def assert_cross_parent_access_rejected(
     cross_parent_requests = [
         (
             "GET",
-            (
-                f"/project/project/{first['skill']['id']}/"
-                f"{second['project']['id']}"
-            ),
+            (f"/project/project/{first['skill']['id']}/{second['project']['id']}"),
             None,
         ),
         (
             "GET",
-            (
-                f"/task/tasks/{first['skill']['id']}/"
-                f"{second['project']['id']}"
-            ),
+            (f"/task/tasks/{first['skill']['id']}/{second['project']['id']}"),
             None,
         ),
         (
@@ -237,10 +224,7 @@ def delete_project_and_assert_api_inaccessible(
     request(
         headers,
         "GET",
-        (
-            f"/project/project/{tree['skill']['id']}/"
-            f"{tree['project']['id']}"
-        ),
+        (f"/project/project/{tree['skill']['id']}/{tree['project']['id']}"),
         expected_status=404,
     )
     request(
@@ -284,26 +268,14 @@ def assert_dependent_database_rows_deleted(
 ) -> None:
     with Session(engine) as session:
         remaining_rows = {
-            "first skill": session.get(
-                Skill, UUID(first["skill"]["id"])
-            )
+            "first skill": session.get(Skill, UUID(first["skill"]["id"])) is not None,
+            "first project": session.get(Project, UUID(first["project"]["id"]))
             is not None,
-            "first project": session.get(
-                Project, UUID(first["project"]["id"])
-            )
+            "first task": session.get(Task, UUID(first["task"]["id"])) is not None,
+            "second skill": session.get(Skill, UUID(second["skill"]["id"])) is not None,
+            "second project": session.get(Project, UUID(second["project"]["id"]))
             is not None,
-            "first task": session.get(Task, UUID(first["task"]["id"]))
-            is not None,
-            "second skill": session.get(
-                Skill, UUID(second["skill"]["id"])
-            )
-            is not None,
-            "second project": session.get(
-                Project, UUID(second["project"]["id"])
-            )
-            is not None,
-            "second task": session.get(Task, UUID(second["task"]["id"]))
-            is not None,
+            "second task": session.get(Task, UUID(second["task"]["id"])) is not None,
         }
 
     assert remaining_rows == {
@@ -322,20 +294,14 @@ def cleanup_test_resources(
 ) -> None:
     with Session(engine) as session:
         if created_ids["tasks"]:
-            session.execute(
-                delete(Task).where(Task.id.in_(created_ids["tasks"]))
-            )
+            session.execute(delete(Task).where(Task.id.in_(created_ids["tasks"])))
         if created_ids["projects"]:
             session.execute(
                 delete(Project).where(Project.id.in_(created_ids["projects"]))
             )
         if created_ids["skills"]:
-            session.execute(
-                delete(Skill).where(Skill.id.in_(created_ids["skills"]))
-            )
-        user = session.scalar(
-            select(User).where(User.email == test_user["email"])
-        )
+            session.execute(delete(Skill).where(Skill.id.in_(created_ids["skills"])))
+        user = session.scalar(select(User).where(User.email == test_user["email"]))
         if user is not None:
             session.delete(user)
         session.commit()
@@ -352,18 +318,12 @@ def test_invalid_ids_cross_parent_access_and_cascading_deletes():
 
     try:
         headers = signup_and_get_headers(test_user)
-        first = create_tree(
-            headers, "first", unique_value, created_ids
-        )
-        second = create_tree(
-            headers, "second", unique_value, created_ids
-        )
+        first = create_tree(headers, "first", unique_value, created_ids)
+        second = create_tree(headers, "second", unique_value, created_ids)
 
         assert_malformed_ids_rejected(headers, first)
         assert_nonexistent_ids_rejected(headers, first)
-        assert_cross_parent_access_rejected(
-            headers, first, second, unique_value
-        )
+        assert_cross_parent_access_rejected(headers, first, second, unique_value)
         delete_project_and_assert_api_inaccessible(headers, first)
         delete_skill_and_assert_api_inaccessible(headers, second)
         assert_dependent_database_rows_deleted(first, second)

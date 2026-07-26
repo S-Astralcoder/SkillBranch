@@ -29,18 +29,14 @@ def assert_user_only_lists_own_data(
     own_tree: dict[str, dict],
 ) -> None:
     skills = request(headers, "GET", "/skill/skills").json()
-    assert {skill["id"] for skill in skills} == {
-        own_tree["skill"]["id"]
-    }
+    assert {skill["id"] for skill in skills} == {own_tree["skill"]["id"]}
 
     tasks = request(
         headers,
         "POST",
         "/task/near_deadline_tasks",
     ).json()
-    assert {task["id"] for task in tasks} == {
-        own_tree["task"]["id"]
-    }
+    assert {task["id"] for task in tasks} == {own_tree["task"]["id"]}
 
 
 def assert_user_cannot_access_tree(
@@ -51,9 +47,7 @@ def assert_user_cannot_access_tree(
     skill_id = other_tree["skill"]["id"]
     project_id = other_tree["project"]["id"]
     task_id = other_tree["task"]["id"]
-    deadline = (
-        datetime.now(UTC) + timedelta(days=2)
-    ).isoformat()
+    deadline = (datetime.now(UTC) + timedelta(days=2)).isoformat()
 
     forbidden_requests = [
         ("GET", f"/skill/skill/{skill_id}", None),
@@ -164,43 +158,44 @@ def assert_owner_still_has_tree(
     project_id = tree["project"]["id"]
     task_id = tree["task"]["id"]
 
-    assert request(
-        headers,
-        "GET",
-        f"/skill/skill/{skill_id}",
-    ).json()["id"] == skill_id
-    assert request(
-        headers,
-        "GET",
-        f"/project/project/{skill_id}/{project_id}",
-    ).json()["id"] == project_id
-    assert request(
-        headers,
-        "GET",
-        f"/task/task/{skill_id}/{project_id}/{task_id}",
-    ).json()["id"] == task_id
+    assert (
+        request(
+            headers,
+            "GET",
+            f"/skill/skill/{skill_id}",
+        ).json()["id"]
+        == skill_id
+    )
+    assert (
+        request(
+            headers,
+            "GET",
+            f"/project/project/{skill_id}/{project_id}",
+        ).json()["id"]
+        == project_id
+    )
+    assert (
+        request(
+            headers,
+            "GET",
+            f"/task/task/{skill_id}/{project_id}/{task_id}",
+        ).json()["id"]
+        == task_id
+    )
 
 
 def cleanup_users_and_resources(
     users: list[dict[str, str]],
     resources: list[dict[str, dict]],
 ) -> None:
-    task_ids = [
-        UUID(resource["task"]["id"]) for resource in resources
-    ]
-    project_ids = [
-        UUID(resource["project"]["id"]) for resource in resources
-    ]
-    skill_ids = [
-        UUID(resource["skill"]["id"]) for resource in resources
-    ]
+    task_ids = [UUID(resource["task"]["id"]) for resource in resources]
+    project_ids = [UUID(resource["project"]["id"]) for resource in resources]
+    skill_ids = [UUID(resource["skill"]["id"]) for resource in resources]
     emails = [user["email"] for user in users]
 
     with Session(engine) as session:
         session.execute(delete(Task).where(Task.id.in_(task_ids)))
-        session.execute(
-            delete(Project).where(Project.id.in_(project_ids))
-        )
+        session.execute(delete(Project).where(Project.id.in_(project_ids)))
         session.execute(delete(Skill).where(Skill.id.in_(skill_ids)))
         database_users = session.scalars(
             select(User).where(User.email.in_(emails))
@@ -216,20 +211,16 @@ def test_users_cannot_access_each_others_data():
     resources: list[dict[str, dict]] = []
 
     try:
-        first_user, first_headers, first_resources = (
-            create_user_with_resources(
-                f"first-{unique_value}",
-                ["First"],
-            )
+        first_user, first_headers, first_resources = create_user_with_resources(
+            f"first-{unique_value}",
+            ["First"],
         )
         users.append(first_user)
         resources.extend(first_resources)
 
-        second_user, second_headers, second_resources = (
-            create_user_with_resources(
-                f"second-{unique_value}",
-                ["Second"],
-            )
+        second_user, second_headers, second_resources = create_user_with_resources(
+            f"second-{unique_value}",
+            ["Second"],
         )
         users.append(second_user)
         resources.extend(second_resources)

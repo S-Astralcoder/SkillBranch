@@ -112,18 +112,24 @@ def get_tasks_by_project(
     project_id: UUID,
     skill_id: UUID,
     user_id: UUID,
-    db_session: Session, offset : int, limit : int | None
+    db_session: Session,
+    offset: int,
+    limit: int | None,
 ) -> list[Task]:
     query = (
-        select(Task)
-        .join(Project, Project.id == Task.project_id)
-        .join(Skill, Skill.id == Project.skill_id)
-        .where(
-            Skill.user_id == user_id,
-            Project.id == project_id,
-            Skill.id == skill_id,
+        (
+            select(Task)
+            .join(Project, Project.id == Task.project_id)
+            .join(Skill, Skill.id == Project.skill_id)
+            .where(
+                Skill.user_id == user_id,
+                Project.id == project_id,
+                Skill.id == skill_id,
+            )
         )
-    ).offset(offset=offset).limit(limit=limit)
+        .offset(offset=offset)
+        .limit(limit=limit)
+    )
     return list(db_session.scalars(query).all())
 
 
@@ -135,7 +141,7 @@ def get_tasks_ordered_by_deadline(
         select(Task)
         .join(Project, Project.id == Task.project_id)
         .join(Skill, Skill.id == Project.skill_id)
-        .where(Skill.user_id == user_id, Task.completed == False)
+        .where(Skill.user_id == user_id, Task.completed == False)  # noqa
         .order_by(Task.deadline.asc())
     )
     return list(db_session.scalars(query).all())
