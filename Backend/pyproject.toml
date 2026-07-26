@@ -33,3 +33,7 @@ typeCheckingMode = "basic"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]
+
+
+[tool.ruff]
+exclude =["tests"]
