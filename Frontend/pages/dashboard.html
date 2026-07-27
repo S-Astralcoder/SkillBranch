@@ -21,7 +21,8 @@
 
     <script src="https://kit.fontawesome.com/fd488fa74c.js" crossorigin="anonymous"></script>
 
-    <script src="./js/home.js" defer></script>
+    <script src="../js/dashboard_utilty.js" defer></script>
+
 </head>
 <body>
     <header id="page-header" class="flex-between header-style header-bottom-line">
@@ -29,7 +30,7 @@
             <a id="home-page-link" href="../index.html"><span id="skill-text">Skill</span><span id="branch-text" class="branch-text">Branch</span></a>
         </section>
         <section id="profile" class="profile">
-            <button type="button">Welcome, User!</button>
+            <button type="button" id="options-btn">Welcome, User!</button>
             <section id="user-options" class="user-options">
                 <a href="" class="text-hover">Logout</a>
                 <a href="" class="text-hover">Toggle alert</a>
@@ -43,7 +44,7 @@
                 <search>
                     <input type="search" name="search-skill" id="search-skill">
                     <button type="button" id="filter-btn" class="filter-btn"><i class="fa-solid fa-sliders"></i></button>
-                    <section id="fileter-options" class="filter-options">
+                    <section id="filter-options" class="filter-options">
                         <a href="" class="text-hover">A-z</a>
                         <a href="" class="text-hover">latest</a>
                         <a href="" class="text-hover">oldest</a>
