@@ -1,28 +1,24 @@
 :root {
     --header-background-color: hsl(0, 0%, 0%);
     --header-text-color: hsl(0, 0%, 100%);
-
     --header-bottom-border-color: hsl(0, 0%, 13%);
-
     --hover-text-color: hsl(51, 100%, 45%);
-
     --background-color: hsl(0, 0%, 0%);
-    --color : hsl(0, 0%, 100%);
-
+    --color: hsl(0, 0%, 100%);
     --mob-nav-border-color: hsl(0, 0%, 100%);
-
-    --form-border-color : hsl(0, 0%, 100%);
+    --form-border-color: hsl(0, 0%, 100%);
     --form-button-text-color: hsl(0, 0%, 0%);
 }
 
+/* Base */
 body {
-    margin: 0px;
+    margin: 0;
     min-width: 360px;
     z-index: 0;
     background-color: var(--background-color);
 }
 
-
+/* Layout utilities */
 .static-element {
     position: fixed;
 }
@@ -34,89 +30,6 @@ body {
     align-items: center;
 }
 
-.header-style {
-    background-color: var(--header-background-color);
-    color: var(--header-text-color);
-    padding: 15px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.logo {
-    font-size: 30px;
-    font-family: "Rye", sans-serif;
-}
-
-.logo #branch-text {
-    font-size: 25px;
-}
-
-
-.nav {
-    display: flex;
-    flex-direction: row;
-    column-gap: 40px;
-    color: var(--header-text-color);
-    font-size: large;
-    padding: 10px;
-}
-
-.nav a {
-    text-decoration: none;
-    color: var(--header-text-color);
-}
-
-.mob-nav {
-    display: none;
-}
-
-
-
-.side-menu {
-
-    position: fixed;
-    right: 10px;
-    top: 80px;
-
-    /* change to flex for active state */
-    display: None;  
-    flex-direction: column;
-    align-content: end;
-    row-gap: 10px;
-    width: 100px;
-
-    border: var(--mob-nav-border-color) solid 1px;
-    border-radius: 10px;
-    padding: 20px;
-
-    background-color: black;
-
-    z-index: 1;
-}
-
-.side-menu a {
-    text-decoration: none;
-    color: var(--header-text-color);
-    font-size: large;
-}
-
-.mob-nav button {
-    border-radius: 20px;
-    background-color: var(--header-background-color);
-    color: var(--header-text-color);
-    width: 20vw;
-}
-
-.header-bottom-line {
-    border-bottom: var(--header-bottom-border-color) solid 2px;
-}
-
-
-.text-hover:hover {
-    color: var(--hover-text-color);
-    text-decoration: underline;
-}
-
 .center-content {
     display: flex;
     justify-content: center;
@@ -126,47 +39,122 @@ body {
     row-gap: 50px;
 }
 
-.content-container {
-    background-color: var(--background-color);
-    color: var(--color);
-    height: 100vh;
-}
-
 .center-text {
     justify-items: center;
     align-items: center;
-}
-
-.center-text{
     text-align: center;
 }
 
-#welcome p {
+/* Header */
+.header-style {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 15px;
+    background-color: var(--header-background-color);
+    color: var(--header-text-color);
+}
+
+.header-bottom-line {
+    border-bottom: var(--header-bottom-border-color) solid 2px;
+}
+
+.logo {
+    font-family: "Rye", sans-serif;
+    font-size: 30px;
+}
+
+.logo .branch-text {
+    font-size: 25px;
+}
+
+/* Navigation */
+.nav {
+    display: flex;
+    flex-direction: row;
+    column-gap: 40px;
+    padding: 10px;
+    color: var(--header-text-color);
+    font-size: large;
+}
+
+.nav a,
+.side-menu a {
+    color: var(--header-text-color);
+    text-decoration: none;
+}
+
+.mob-nav {
+    display: none;
+}
+
+.mob-nav button {
+    width: 20vw;
+    border-radius: 20px;
+    background-color: var(--header-background-color);
+    color: var(--header-text-color);
+}
+
+.side-menu {
+    position: fixed;
+    top: 80px;
+    right: 10px;
+    z-index: 1;
+
+    /* Change to flex for the active state. */
+    display: none;
+    flex-direction: column;
+    align-content: end;
+    row-gap: 10px;
+
+    width: 100px;
+    padding: 20px;
+    border: var(--mob-nav-border-color) solid 1px;
+    border-radius: 10px;
+    background-color: black;
+}
+
+.side-menu a {
+    font-size: large;
+}
+
+.text-hover:hover {
+    color: var(--hover-text-color);
+    text-decoration: underline;
+}
+
+/* Page content */
+.content-container {
+    height: 100vh;
+    background-color: var(--background-color);
+    color: var(--color);
+}
+
+.welcome p {
+    width: 70vw;
+    overflow: hidden;
     text-align: center;
     font-family: "Merriweather";
     font-size: larger;
-    width: 70vw;
 }
 
-#welcome h1{
-    font-size: 50px;
+.welcome h1 {
+    overflow: hidden;
     font-family: "Archivo Black", sans-serif;
+    font-size: 50px;
 }
 
-#entry {
+.entry {
     display: flex;
     flex-direction: row;
 }
 
 .btn-style {
-    margin: 10px;
     width: 30vw;
-    
+    margin: 10px;
     padding: 10px;
-    font-size: larger;
     border-radius: 10px;
-
     font-family: "Rye";
+    font-size: larger;
 }
 
 .btn-style:hover {
@@ -181,7 +169,8 @@ body {
     .btn-style {
         width: 60vw;
     }
-    #entry {
+
+    .entry {
         flex-direction: column;
     }
 

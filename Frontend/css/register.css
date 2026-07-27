@@ -1,71 +1,69 @@
-#invite-call {
+/* Registration page content */
+.invite-call {
+    overflow: hidden;
     text-align: center;
     font-family: "Merriweather";
 }
 
+/* Form shell */
 .form {
     border: var(--form-border-color) solid 2px;
     border-radius: 10px;
-
     scale: 1.3;
 }
 
+.form-header {
+    margin-top: 5px;
+    padding-bottom: 5px;
+    overflow: hidden;
+    border-bottom: var(--form-border-color) solid 1px;
+    text-align: center;
+}
 
-
-#form-content-container {
-    margin-right: 20px;
-    margin-left: 20px;
-    margin-bottom: 20px;
-
-
+.form-content-container {
     display: flex;
     flex-direction: column;
     row-gap: 10px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
 }
 
-#form-header {
-    text-align: center;
-    border-bottom: var(--form-border-color) solid 1px;
-    margin-top: 5px;
-    padding-bottom: 5px;
-}
-
-#email-box, #name-box {
+/* Form fields */
+.email-box,
+.name-box {
     display: flex;
     flex-direction: column;
 }
 
-#password-input-container {
+.password-input-container {
     display: flex;
 }
 
-#submit-btn {
-    width: 100%;
-}
-
-#show-password {
+.show-password {
+    border: none;
     background-color: var(--form-border-color);
     color: var(--form-button-text-color);
-    border: none;
 }
 
-#show-password:active {
+.show-password:active {
     scale: 0.97;
 }
 
+/* Form actions */
 .submit-btn {
+    width: 100%;
     margin-top: 10px;
-    border-radius: 10px;
-    font-family: "Rye";
     padding: 5px;
+    border-radius: 10px;
     background-color: var(--form-border-color);
+    font-family: "Rye";
 }
 
-.submit-btn:hover{
+.submit-btn:hover {
     scale: 1.01;
 }
 
 .submit-btn:active {
     scale: 0.99;
 }
-

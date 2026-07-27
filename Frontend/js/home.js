@@ -1,5 +1,5 @@
 function toggle_side_menu(){
-    const side_menu = document.querySelector("#side-menu")
+    const side_menu = document.querySelector(".side-menu")
     if (side_menu){
         let ishidden = getComputedStyle(side_menu).display === "none"
 
@@ -21,7 +21,7 @@ else{
 
 function handle_resize() {
     if (window.innerWidth >= 600){
-        let side_menu = document.querySelector("#side-menu")
+        let side_menu = document.querySelector(".side-menu")
         if (side_menu){
             side_menu.style.display = "none"
         }

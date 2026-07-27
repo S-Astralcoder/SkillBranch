@@ -1,38 +1,31 @@
 :root {
     --header-background-color: hsl(0, 0%, 0%);
     --header-text-color: hsl(0, 0%, 100%);
-
     --header-bottom-border-color: hsl(0, 0%, 13%);
-
     --hover-text-color: hsl(51, 100%, 45%);
-
     --background-color: hsl(0, 0%, 0%);
-    --color : hsl(0, 0%, 100%);
-
+    --color: hsl(0, 0%, 100%);
     --mob-nav-border-color: hsl(0, 0%, 100%);
-
-    --form-border-color : hsl(0, 0%, 100%);
+    --form-border-color: hsl(0, 0%, 100%);
     --form-button-text-color: hsl(0, 0%, 0%);
-
     --id-color: gold;
     --deadline-date-color: hsl(0, 100%, 50%);
 }
 
+/* Base */
+html,
 body {
-    margin: 0px;
-    min-width: 360px;
-    z-index: 0;
-    background-color: var(--background-color);
-
-    
-
-}
-
-html, body {
     scrollbar-width: none;
 }
 
+body {
+    margin: 0;
+    min-width: 360px;
+    z-index: 0;
+    background-color: var(--background-color);
+}
 
+/* Layout utilities */
 .static-element {
     position: fixed;
 }
@@ -44,59 +37,58 @@ html, body {
     align-items: center;
 }
 
+/* Header */
 .header-style {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 15px;
     background-color: var(--header-background-color);
     color: var(--header-text-color);
-    padding: 15px;
-    width: 100%;
-    box-sizing: border-box;
 }
 
-.logo {
-    font-size: 30px;
-    font-family: "Rye", sans-serif;
-}
-
-.logo a {
-    text-decoration: none;
-    color: var(--header-text-color);
-}
-
-.logo #branch-text {
-    font-size: 25px;
-}
 .header-bottom-line {
     border-bottom: var(--header-bottom-border-color) solid 2px;
 }
 
+.logo {
+    font-family: "Rye", sans-serif;
+    font-size: 30px;
+}
+
+.logo a {
+    color: var(--header-text-color);
+    text-decoration: none;
+}
+
+.logo .branch-text {
+    font-size: 25px;
+}
+
 .profile button {
+    padding: 10px;
     border-radius: 20px;
     background-color: var(--header-background-color);
     color: var(--header-text-color);
-    padding: 10px;
-
     font-family: "solway", sans-serif;
     font-size: large;
 }
 
+/* Dashboard layout */
 .content-container {
     display: grid;
     grid-template-columns: 1fr 400px;
-
 }
 
 .content-container h2 {
+    margin: 0 0 0 20px;
+    overflow: hidden;
     color: var(--color);
-    margin: 0px;
-    margin-left: 20px;
     font-family: "Rye", sans-serif;
 }
 
 .skill-dashboard {
-
     display: flex;
     flex-direction: column;
-
     padding: 10px;
 }
 
@@ -108,167 +100,142 @@ html, body {
     padding: 10px;
 }
 
-.skill-box {
-    color: var(--color);
-    border: white solid 1px;
-
-    display: grid;
-    grid-template-columns: 1fr 20%;
-    grid-template-rows: auto;
-    padding: 10px;
-
-    font-family: "solway";
-
-    justify-content: center;
-    align-items: center;
-
-
-
-
-}
-
-#skill-description {
-    margin: 0px;
-    height: 20px;
-    overflow: hidden;
-}
-
-#skill-name{
-    text-decoration: none;
-    color: var(--color);
-    font-family: "Rye", sans-serif;
-    font-size: larger;
-
-    overflow: hidden;
-}
-
-#skill-date {
-    font-size: 10px;
-    align-items: center;
-    float: right;
-}
-
-#skill-id {
-    margin-top: 5px;
-    text-decoration: none;
-    font-size: 7px;
-    color: var(--id-color);
-}
-
-
-#skill-info {
-    display: flex;
-    flex-direction: column;
-    row-gap: 10px;    
-}
-
-.skill-container {
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    row-gap: 10px;
-}
-
-.near-deadline-task {
-    margin-top: 30px;
-
-    color: var(--color);
-
-    display: flex;
-    flex-direction: column;
-
-
-}
-
-.new-skill-btn {
-    font-family: "Rye", sans-serif;
-    font-size: 18px;
-
-    background-color: var(--background-color);
-    color: var(--color);
-
-    border: var(--color) solid 1px;
-
-    padding: 10px;
-}
-
-#filter-btn {
-    background-color: var(--background-color);
-    color: var(--color);
-
-}
-
-input[type="search"]{
+/* Skill controls */
+input[type="search"] {
     width: 20vw;
     border-radius: 5px;
     font-size: medium;
+}
+
+.filter-btn {
+    background-color: var(--background-color);
+    color: var(--color);
+}
+
+.new-skill-btn {
+    padding: 10px;
+    border: var(--color) solid 1px;
+    background-color: var(--background-color);
+    color: var(--color);
+    font-family: "Rye", sans-serif;
+    font-size: 18px;
 }
 
 .new-skill-btn:hover {
     scale: 1.01;
 }
 
-.new-skill-btn:active{
+.new-skill-btn:active {
     scale: 0.99;
 }
 
-#deadline-header h1 {
+/* Skill list */
+.skill-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    padding: 10px;
+}
+
+.skill-box {
+    display: grid;
+    grid-template-columns: 1fr 20%;
+    grid-template-rows: auto;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border: white solid 1px;
+    color: var(--color);
+    font-family: "solway";
+}
+
+.skill-info {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    min-width: 0;
+}
+
+.skill-name {
+    overflow: hidden;
+    color: var(--color);
+    text-decoration: none;
+    font-family: "Rye", sans-serif;
+    font-size: larger;
+}
+
+.skill-description {
+    height: 20px;
+    margin: 0;
+    overflow: hidden;
+}
+
+.skill-date {
+    float: right;
+    overflow: hidden;
+    align-items: center;
+    font-size: 10px;
+}
+
+.skill-id {
+    margin-top: 5px;
+    overflow: hidden;
+    color: var(--id-color);
+    text-decoration: none;
+    font-size: 7px;
+}
+
+/* Urgent tasks */
+.near-deadline-task {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    color: var(--color);
+}
+
+.deadline-header h1 {
+    overflow: hidden;
     text-align: center;
     font-family: "solway";
 }
 
-#urgent-tasks-container {
-    border: var(--color) solid 1px;
-    margin: 5px;
+.urgent-tasks-container {
     height: 70vh;
-
+    margin: 5px;
     overflow-y: scroll;
-
+    border: var(--color) solid 1px;
     scrollbar-width: none;
-
 }
 
-#urgent-task-box{
-    border: var(--color) solid 1px;
+.urgent-task-box {
     margin: 5px;
     padding: 5px;
+    overflow: hidden;
+    border: var(--color) solid 1px;
 }
 
-#urgent-task-name {
-    font-size: large;
+.urgent-task-name {
+    overflow: hidden;
     font-family: "solway", sans-serif;
+    font-size: large;
 }
 
-#urgent-deadline-date{
-    color: var(--deadline-date-color);
+.urgent-deadline-date {
     margin: 2px;
+    overflow: hidden;
+    color: var(--deadline-date-color);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-@media (width < 1024px){
-    .near-deadline-task{
+@media (width < 1024px) {
+    .near-deadline-task {
         display: none;
     }
 
-    .content-container{
+    .content-container {
         display: block;
     }
-    input[type="search"]{
+
+    input[type="search"] {
         width: 40vw;
     }
-
-    
-    
 }
