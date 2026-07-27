@@ -10,12 +10,16 @@
     --color : hsl(0, 0%, 100%);
 
     --mob-nav-border-color: hsl(0, 0%, 100%);
+
+    --form-border-color : hsl(0, 0%, 100%);
+    --form-button-text-color: hsl(0, 0%, 0%);
 }
 
 body {
     margin: 0px;
     min-width: 360px;
     z-index: 0;
+    background-color: var(--background-color);
 }
 
 
@@ -131,6 +135,10 @@ body {
 .center-text {
     justify-items: center;
     align-items: center;
+}
+
+.center-text{
+    text-align: center;
 }
 
 #welcome p {
