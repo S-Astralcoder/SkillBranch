@@ -1,0 +1,274 @@
+:root {
+    --header-background-color: hsl(0, 0%, 0%);
+    --header-text-color: hsl(0, 0%, 100%);
+
+    --header-bottom-border-color: hsl(0, 0%, 13%);
+
+    --hover-text-color: hsl(51, 100%, 45%);
+
+    --background-color: hsl(0, 0%, 0%);
+    --color : hsl(0, 0%, 100%);
+
+    --mob-nav-border-color: hsl(0, 0%, 100%);
+
+    --form-border-color : hsl(0, 0%, 100%);
+    --form-button-text-color: hsl(0, 0%, 0%);
+
+    --id-color: gold;
+    --deadline-date-color: hsl(0, 100%, 50%);
+}
+
+body {
+    margin: 0px;
+    min-width: 360px;
+    z-index: 0;
+    background-color: var(--background-color);
+
+    
+
+}
+
+html, body {
+    scrollbar-width: none;
+}
+
+
+.static-element {
+    position: fixed;
+}
+
+.flex-between {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-style {
+    background-color: var(--header-background-color);
+    color: var(--header-text-color);
+    padding: 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.logo {
+    font-size: 30px;
+    font-family: "Rye", sans-serif;
+}
+
+.logo a {
+    text-decoration: none;
+    color: var(--header-text-color);
+}
+
+.logo #branch-text {
+    font-size: 25px;
+}
+.header-bottom-line {
+    border-bottom: var(--header-bottom-border-color) solid 2px;
+}
+
+.profile button {
+    border-radius: 20px;
+    background-color: var(--header-background-color);
+    color: var(--header-text-color);
+    padding: 10px;
+
+    font-family: "solway", sans-serif;
+    font-size: large;
+}
+
+.content-container {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+
+}
+
+.content-container h2 {
+    color: var(--color);
+    margin: 0px;
+    margin-left: 20px;
+    font-family: "Rye", sans-serif;
+}
+
+.skill-dashboard {
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 10px;
+}
+
+.skill-top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.skill-box {
+    color: var(--color);
+    border: white solid 1px;
+
+    display: grid;
+    grid-template-columns: 1fr 20%;
+    grid-template-rows: auto;
+    padding: 10px;
+
+    font-family: "solway";
+
+    justify-content: center;
+    align-items: center;
+
+
+
+
+}
+
+#skill-description {
+    margin: 0px;
+    height: 20px;
+    overflow: hidden;
+}
+
+#skill-name{
+    text-decoration: none;
+    color: var(--color);
+    font-family: "Rye", sans-serif;
+    font-size: larger;
+
+    overflow: hidden;
+}
+
+#skill-date {
+    font-size: 10px;
+    align-items: center;
+    float: right;
+}
+
+#skill-id {
+    margin-top: 5px;
+    text-decoration: none;
+    font-size: 7px;
+    color: var(--id-color);
+}
+
+
+#skill-info {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;    
+}
+
+.skill-container {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.near-deadline-task {
+    margin-top: 30px;
+
+    color: var(--color);
+
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+.new-skill-btn {
+    font-family: "Rye", sans-serif;
+    font-size: 18px;
+
+    background-color: var(--background-color);
+    color: var(--color);
+
+    border: var(--color) solid 1px;
+
+    padding: 10px;
+}
+
+#filter-btn {
+    background-color: var(--background-color);
+    color: var(--color);
+
+}
+
+input[type="search"]{
+    width: 20vw;
+    border-radius: 5px;
+    font-size: medium;
+}
+
+.new-skill-btn:hover {
+    scale: 1.01;
+}
+
+.new-skill-btn:active{
+    scale: 0.99;
+}
+
+#deadline-header h1 {
+    text-align: center;
+    font-family: "solway";
+}
+
+#urgent-tasks-container {
+    border: var(--color) solid 1px;
+    margin: 5px;
+    height: 70vh;
+
+    overflow-y: scroll;
+
+    scrollbar-width: none;
+
+}
+
+#urgent-task-box{
+    border: var(--color) solid 1px;
+    margin: 5px;
+    padding: 5px;
+}
+
+#urgent-task-name {
+    font-size: large;
+    font-family: "solway", sans-serif;
+}
+
+#urgent-deadline-date{
+    color: var(--deadline-date-color);
+    margin: 2px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (width < 1024px){
+    .near-deadline-task{
+        display: none;
+    }
+
+    .content-container{
+        display: block;
+    }
+    input[type="search"]{
+        width: 40vw;
+    }
+
+    
+    
+}
