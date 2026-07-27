@@ -8,6 +8,7 @@
     <title>SkillBranch - DashBoard</title>
 
     <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/project_dashboard.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,25 +40,26 @@
     </header>
     <main id="home-page-content" class="center-content content-container">
         <section id="project-dashboard" class="project-dashboard">
-            <main id="skill-info-box">
+            <article id="skill-info-box">
                 <div id="skill-info">
                     <div id="skill-main">
-                        <h1 id="skill-name">SKill Name</h1>
-                        <p id="skill-description">description</p>
+                        <h1 id="skill-name">Web Development</h1>
+                        <p id="skill-description">Build accessible and responsive websites using modern frontend technologies.</p>
                     </div>
                     <div id="skill-date-info">
-                        <p id="skill-date">Create At: <br>Updated At: </p>
+                        <p id="skill-date">Created At: 12-07-2026<br>Updated At: 24-07-2026</p>
                     </div>
                 </div>
                 <div id="skill-bottom">
-                    <a id="skill-id">#id</a>
+                    <a href="" id="skill-id">#id:skill-web-development-01</a>
                     <div id="skill-options">
-                        <button id="skill-edit"><i class="fa-solid fa-pen"></i></button>
-                        <button id="skill-delete"><i class="fa-regular fa-trash-can"></i></button>
+                        <button type="button" id="skill-edit" class="option-btn"><i class="fa-solid fa-pen"></i></button>
+                        <button type="button" id="skill-delete" class="option-btn"><i class="fa-regular fa-trash-can"></i></button>
                     </div>
                 </div>
-            </main>
+            </article>
             <section id="project-section">
+                <h2>Projects</h2>
                 <div id="project-top">
                     <search id="project-search">
                         <input type="search" name="project-skill" id="search-project">
@@ -68,10 +70,59 @@
                             <a href="" class="text-hover">oldest</a>
                         </section>
                     </search>
-                    <button id="create-project">Create Project</button>
+                    <button type="button" id="create-project" class="new-skill-btn">Create Project</button>
                 </div>
                 <article id="project-container">
-
+                    <section class="project-box">
+                        <div class="project-info">
+                            <a href="" class="project-name">Portfolio Website</a>
+                            <p class="project-description">A responsive personal portfolio to present projects, skills and contact information.</p>
+                        </div>
+                        <div class="project-data">
+                            <p class="project-date">Created At: 14-07-2026<br>Updated At: 26-07-2026</p>
+                        </div>
+                        <a href="" class="project-id">#id:project-portfolio-01</a>
+                    </section>
+                    <section class="project-box">
+                        <div class="project-info">
+                            <a href="" class="project-name">Weather Dashboard</a>
+                            <p class="project-description">A weather application that displays current conditions and a weekly forecast.</p>
+                        </div>
+                        <div class="project-data">
+                            <p class="project-date">Created At: 10-07-2026<br>Updated At: 22-07-2026</p>
+                        </div>
+                        <a href="" class="project-id">#id:project-weather-02</a>
+                    </section>
+                    <section class="project-box">
+                        <div class="project-info">
+                            <a href="" class="project-name">Expense Tracker</a>
+                            <p class="project-description">A simple expense tracker for recording purchases and viewing monthly totals.</p>
+                        </div>
+                        <div class="project-data">
+                            <p class="project-date">Created At: 08-07-2026<br>Updated At: 20-07-2026</p>
+                        </div>
+                        <a href="" class="project-id">#id:project-expense-03</a>
+                    </section>
+                    <section class="project-box">
+                        <div class="project-info">
+                            <a href="" class="project-name">Recipe Finder</a>
+                            <p class="project-description">A searchable recipe collection with ingredient lists and cooking instructions.</p>
+                        </div>
+                        <div class="project-data">
+                            <p class="project-date">Created At: 03-07-2026<br>Updated At: 18-07-2026</p>
+                        </div>
+                        <a href="" class="project-id">#id:project-recipe-04</a>
+                    </section>
+                    <section class="project-box">
+                        <div class="project-info">
+                            <a href="" class="project-name">Study Planner</a>
+                            <p class="project-description">A weekly study planner for organising subjects, goals and revision sessions.</p>
+                        </div>
+                        <div class="project-data">
+                            <p class="project-date">Created At: 01-07-2026<br>Updated At: 15-07-2026</p>
+                        </div>
+                        <a href="" class="project-id">#id:project-study-05</a>
+                    </section>
                 </article>
             </section>
         </section>

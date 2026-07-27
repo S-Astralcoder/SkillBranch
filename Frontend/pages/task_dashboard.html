@@ -8,6 +8,7 @@
     <title>SkillBranch - DashBoard</title>
 
     <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/task_dashboard.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,8 +39,97 @@
         </section>
     </header>
     <main id="home-page-content" class="center-content content-container">
-        <section id="project-dashboard" class="project-dashboard">
-            
+        <section id="task-dashboard" class="task-dashboard">
+            <article id="project-info-box">
+                <div id="project-info">
+                    <div id="project-main">
+                        <h1 id="project-name">Portfolio Website</h1>
+                        <p id="project-description">A responsive personal portfolio to present projects, skills and contact information.</p>
+                    </div>
+                    <div id="project-date-info">
+                        <p id="project-date">Created At: 14-07-2026<br>Updated At: 26-07-2026</p>
+                    </div>
+                </div>
+                <div id="project-bottom">
+                    <a href="" id="project-id">#id:project-portfolio-01</a>
+                    <div id="project-options">
+                        <button type="button" id="project-edit" class="option-btn"><i class="fa-solid fa-pen"></i></button>
+                        <button type="button" id="project-delete" class="option-btn"><i class="fa-regular fa-trash-can"></i></button>
+                    </div>
+                </div>
+            </article>
+            <section id="task-section">
+                <h2>Tasks</h2>
+                <div id="task-top">
+                    <search id="task-search">
+                        <input type="search" name="search-task" id="search-task">
+                        <button type="button" id="filter-btn" class="filter-btn"><i class="fa-solid fa-sliders"></i></button>
+                        <section id="filter-options" class="filter-options">
+                            <a href="" class="text-hover">A-z</a>
+                            <a href="" class="text-hover">latest</a>
+                            <a href="" class="text-hover">oldest</a>
+                        </section>
+                    </search>
+                    <button type="button" id="create-task" class="new-skill-btn">Create Task</button>
+                </div>
+                <article id="task-container">
+                    <section class="task-box">
+                        <div class="task-info">
+                            <a href="" class="task-name">Create Hero Section</a>
+                            <p class="task-description">Build the main introduction section with a heading, short summary and call-to-action.</p>
+                        </div>
+                        <div class="task-data">
+                            <p class="task-date">Created At: 15-07-2026<br>Deadline: 28-07-2026</p>
+                        </div>
+                        <a href="" class="task-card-id">#id:task-hero-section-01</a>
+                        <input type="checkbox" name="task-complete" class="task-checkbox" aria-label="Mark Create Hero Section as complete">
+                    </section>
+                    <section class="task-box">
+                        <div class="task-info">
+                            <a href="" class="task-name">Add Project Gallery</a>
+                            <p class="task-description">Create a responsive grid that displays project images, titles and technology labels.</p>
+                        </div>
+                        <div class="task-data">
+                            <p class="task-date">Created At: 16-07-2026<br>Deadline: 30-07-2026</p>
+                        </div>
+                        <a href="" class="task-card-id">#id:task-project-gallery-02</a>
+                        <input type="checkbox" name="task-complete" class="task-checkbox" aria-label="Mark Add Project Gallery as complete">
+                    </section>
+                    <section class="task-box">
+                        <div class="task-info">
+                            <a href="" class="task-name">Build About Section</a>
+                            <p class="task-description">Add a short biography with skill highlights and a link to download the resume.</p>
+                        </div>
+                        <div class="task-data">
+                            <p class="task-date">Created At: 17-07-2026<br>Deadline: 01-08-2026</p>
+                        </div>
+                        <a href="" class="task-card-id">#id:task-about-section-03</a>
+                        <input type="checkbox" name="task-complete" class="task-checkbox" aria-label="Mark Build About Section as complete">
+                    </section>
+                    <section class="task-box">
+                        <div class="task-info">
+                            <a href="" class="task-name">Create Contact Form</a>
+                            <p class="task-description">Build a contact form with name, email and message fields and clear validation states.</p>
+                        </div>
+                        <div class="task-data">
+                            <p class="task-date">Created At: 18-07-2026<br>Deadline: 03-08-2026</p>
+                        </div>
+                        <a href="" class="task-card-id">#id:task-contact-form-04</a>
+                        <input type="checkbox" name="task-complete" class="task-checkbox" aria-label="Mark Create Contact Form as complete">
+                    </section>
+                    <section class="task-box">
+                        <div class="task-info">
+                            <a href="" class="task-name">Test Responsive Layout</a>
+                            <p class="task-description">Check the portfolio on mobile, tablet and desktop screen sizes and fix layout issues.</p>
+                        </div>
+                        <div class="task-data">
+                            <p class="task-date">Created At: 19-07-2026<br>Deadline: 05-08-2026</p>
+                        </div>
+                        <a href="" class="task-card-id">#id:task-responsive-test-05</a>
+                        <input type="checkbox" name="task-complete" class="task-checkbox" aria-label="Mark Test Responsive Layout as complete">
+                    </section>
+                </article>
+            </section>
         </section>
         <aside id="near-deadline-task" class="near-deadline-task">
             <div id="deadline-header" class="deadline-header">
