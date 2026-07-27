@@ -23,6 +23,8 @@
     <script src="https://kit.fontawesome.com/fd488fa74c.js" crossorigin="anonymous"></script>
 
     <script src="../js/dashboard_utilty.js" defer></script>
+    <script src="../js/task_dashboard.js"></script>
+
 
 </head>
 <body>
@@ -204,5 +206,15 @@
             </article>
         </aside>
     </main>
+    <dialog id="task-dialog" class="pop-model">
+        <div id="name-box">
+            <label for="name">Skill Name</label>
+            <input type="text" id="name">
+        </div>
+        <div id="btn-box">
+            <button type="button" id="cancel-btn" onclick="document.querySelector('#task-dialog').close()">Cancel</button>
+            <button type="button" id="submit-btn">Submit</button>
+        </div>
+    </dialog>
 </body>
 </html>
