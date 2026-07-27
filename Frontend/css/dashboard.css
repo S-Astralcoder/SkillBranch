@@ -102,7 +102,7 @@ body {
 
 /* Skill controls */
 input[type="search"] {
-    width: 20vw;
+    width: 325px;
     border-radius: 5px;
     font-size: medium;
 }
@@ -226,6 +226,69 @@ input[type="search"] {
     color: var(--deadline-date-color);
 }
 
+
+/* User options */
+
+.user-options {
+    position: absolute;
+    top: 80px;
+    right: 10px;
+    z-index: 1;
+
+    /* Change to flex for the active state. */
+    display: none;
+    flex-direction: column;
+    align-content: end;
+    row-gap: 10px;
+
+    width: 100px;
+    padding: 20px;
+    border: var(--mob-nav-border-color) solid 1px;
+    border-radius: 10px;
+    background-color: black;
+}
+
+.user-options a {
+    text-decoration: none;
+    color: var(--color);
+}
+
+
+.text-hover:hover {
+    color: var(--hover-text-color);
+    text-decoration: underline;
+}
+
+
+/* Filter options */
+
+.filter-options {
+    position: absolute;
+    top: 170px;
+    left: 350px;
+    z-index: 1;
+
+    /* Change to flex for the active state. */
+    display: none;
+    flex-direction: column;
+    align-content: end;
+    row-gap: 10px;
+
+    width: 100px;
+    padding: 20px;
+    border: var(--mob-nav-border-color) solid 1px;
+    border-radius: 10px;
+    background-color: black;
+}
+
+.filter-options a {
+    text-decoration: none;
+    color: var(--color);
+}
+
+
+
+
 @media (width < 1024px) {
     .near-deadline-task {
         display: none;
@@ -236,6 +299,9 @@ input[type="search"] {
     }
 
     input[type="search"] {
-        width: 40vw;
+        width: 180px;
+    }
+    .filter-options{
+        left: 200px;
     }
 }
