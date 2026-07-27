@@ -3,9 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author", content="Astral-Coder">
+    <meta name="description", content="Website to track personal skill progress">
     <title>SkillBranch</title>
+
+
+    <link rel="stylesheet" href="./css/home.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Rye&family=Solway:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Roboto+Slab:wght@100..900&family=Rye&family=Solway:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Roboto+Slab:wght@100..900&family=Rye&family=Solway:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/fd488fa74c.js" crossorigin="anonymous"></script>
+
+    <script src="./js/home.js" defer></script>
 </head>
 <body>
+    <header id="page-header" class="flex-between header-style header-bottom-line static-element">
+        <section id="logo" class="logo">
+            <a id="home-page-link"><span id="skill-text">Skill</span><span id="branch-text">Branch</span></a>
+        </section>
+        <nav id="navigation" class="nav">
+            <a href="" class="text-hover page-highlight" style="text-decoration: underline;">Home</a>
+            <a href="" class="text-hover">Login</a>
+            <a href="" class="text-hover">Signup</a>
+            <a href="" class="text-hover">About us</a>
+        </nav>
+        <nav id="mobile-naviagtion" class="mob-nav">
+            <button class="mob-nav-btn"><i class="fa-solid fa-ellipsis fa-2xl"></i></button>
+        </nav>
+        <aside id="side-menu" class="side-menu">
+            <a href="" class="text-hover" style="text-decoration: underline;">Home</a>
+            <a href="" class="text-hover">Login</a>
+            <a href="" class="text-hover">Signup</a>
+            <a href="" class="text-hover">About us</a>
+        </aside>
+    </header>
+    <main id="home-page-content" class="center-content content-container">
+        <div id="welcome" class="center-text">
+            <h1><span id="context-skill-text">Skill</span><span id="context-branch-text">Branch</span></h1>
+            <p>
+                Grow every skill, one project at a time. Organize what you want to
+                learn, turn your goals into projects, and track each task from start
+                to completion.
+            </p>
+        </div>
+        <div id="entry">
+            <button id="login" class="btn-style">Login</button>
+            <button id="signup" class="btn-style">Signup</button>
+        </div>
+    </main>
     
 </body>
 </html>
