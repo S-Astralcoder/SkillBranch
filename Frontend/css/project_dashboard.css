@@ -104,19 +104,9 @@
 #project-top {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     padding: 10px;
-}
-
-#project-search {
-    position: relative;
-}
-
-#project-search .filter-options {
-    top: calc(100% + 8px);
-    left: 330px;
-
 }
 
 #project-container {
@@ -185,7 +175,4 @@
         grid-template-columns: 1fr 110px;
     }
 
-    #project-search .filter-options {
-        left: 150px;
-    }
 }

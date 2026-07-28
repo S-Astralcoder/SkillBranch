@@ -104,18 +104,9 @@
 #task-top {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     padding: 10px;
-}
-
-#task-search {
-    position: relative;
-}
-
-#task-search .filter-options {
-    top: calc(100% + 8px);
-    left: 330px;
 }
 
 #task-container {

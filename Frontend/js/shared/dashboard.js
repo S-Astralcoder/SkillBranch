@@ -19,7 +19,6 @@ function initializeMenu(buttonSelector, menuSelector) {
 
 export function initializeDashboardMenus() {
     initializeMenu("#options-btn", "#user-options")
-    initializeMenu("#filter-btn", "#filter-options")
 }
 
 export function initializeDialog(buttonSelector, dialogSelector) {
