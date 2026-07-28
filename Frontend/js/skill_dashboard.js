@@ -47,40 +47,92 @@ async function fetch_data() {
 }
 
 
-function create_element(tag_name, id, class_list, attributes, text_content = "", children){
-    const tag = document.createElement(tag_name)
-    tag.id = id
-    tag.classList.add(...class_list)
-    for (const [key, value] of Object.entries(attributes)){
-        tag.setAttribute(key, value)
-    }
-    if (text_content){
-        tag.textContent = text_content
-    }
-    for (const child of children){
-        tag.appendChild(child)
-    }
-    return tag
-}
+function create_element(
+    tag_name,
+    {
+        id = "",
+        classes = [],
+        attributes = {},
+        text = "",
+        children = []
+    } = {}
+) {
+    const element = document.createElement(tag_name)
 
-async function render_skills(data) {
-    const skill_container = document.querySelector("#skill-container")
-    if (skill_container) {
-        skill_container.innerHTML = ""
-        for (const d of data){
-            const skill_box = create_element("section", "", ["skill-box"], {}, "", [
-                create_element("div", "", ["skill-info"], {}, "", [
-                    create_element("a", "", ["skill-name"], {}, d.skill_name, []),
-                    create_element("p", "", ["skill-description"], {}, d.description, [])
-                ]),
-                create_element("div", "", ["skill-data"], {}, "", [
-                    create_element("p", "", ["skill-date"], {}, `Created At: ${d.created_at}<br>Updated At: ${d.updated_at}`)
-                ]),
-                create_element("a", "", ["skill-id"], {}, d.id, [])
-            ])
-            skill_container.appendChild(skill_box)
+    if (id) {
+        element.id = id
+    }
+
+    element.classList.add(...classes.filter(Boolean))
+
+    for (const [key, value] of Object.entries(attributes)) {
+        if (value !== null && value !== undefined) {
+            element.setAttribute(key, value)
         }
     }
+
+    if (text !== "") {
+        element.textContent = String(text)
+    }
+
+    for (const child of children.flat(Infinity)) {
+        if (child !== null && child !== undefined && child !== false) {
+            element.append(child)
+        }
+    }
+
+    return element
+}
+
+function render_skills(data) {
+    const skill_container = document.querySelector("#skill-container")
+    if (!skill_container) {
+        return
+    }
+
+    const skill_fragment = document.createDocumentFragment()
+
+    for (const skill of data) {
+        const skill_box = create_element("section", {
+            classes: ["skill-box"],
+            children: [
+                create_element("div", {
+                    classes: ["skill-info"],
+                    children: [
+                        create_element("a", {
+                            classes: ["skill-name"],
+                            text: skill.skill_name
+                        }),
+                        create_element("p", {
+                            classes: ["skill-description"],
+                            text: skill.description
+                        })
+                    ]
+                }),
+                create_element("div", {
+                    classes: ["skill-data"],
+                    children: [
+                        create_element("p", {
+                            classes: ["skill-date"],
+                            children: [
+                                `Created At: ${skill.created_at}`,
+                                create_element("br"),
+                                `Updated At: ${skill.updated_at}`
+                            ]
+                        })
+                    ]
+                }),
+                create_element("a", {
+                    classes: ["skill-id"],
+                    text: skill.id
+                })
+            ]
+        })
+
+        skill_fragment.appendChild(skill_box)
+    }
+
+    skill_container.replaceChildren(skill_fragment)
 }
 
 check_if_user()
