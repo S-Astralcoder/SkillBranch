@@ -17,3 +17,13 @@ export function completeAuthentication(accessToken) {
     localStorage.setItem("access_token", accessToken)
     window.location.replace(PAGE_URLS.dashboard)
 }
+
+
+export function redirectOnExpiration(status_code = 200){
+    if (status_code === 401){
+        alert("Token has Expired, Please login again!")
+        window.location.replace(PAGE_URLS.login)
+        return true
+    }
+    return false
+}

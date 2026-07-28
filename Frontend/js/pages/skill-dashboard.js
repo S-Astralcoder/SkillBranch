@@ -6,6 +6,7 @@ import {
 import { API_BASE_URL, PAGE_URLS } from "../shared/config.js"
 import { initializeDashboardMenus, initializeDialog } from "../shared/dashboard.js"
 import { element } from "../shared/create_element.js"
+import { redirectOnExpiration } from "../shared/auth.js"
 
 
 // Responsible for loading skills
@@ -14,9 +15,7 @@ async function fetchSkills() {
         headers: getAuthorizationHeaders()
     })
 
-    if (response.status === 401) {
-        alert("Token Expired, Signin Again")
-        window.location.replace(PAGE_URLS.login)
+    if (redirectOnExpiration(response.status)) {        
         return
     }
 
@@ -30,16 +29,16 @@ async function renderSkills(skillData) {
     const skill_container = document.querySelector("#skill-container")
     skill_container.replaceChildren()
     for (const data of skillData){
-        const skill_box = element("section", {classlist: ["skill-box"], childern:
+        const skill_box = element("section", {classlist: ["skill-box"], children:
             [
-                element("div", {classlist: ["skill-info"], childern: 
+                element("div", {classlist: ["skill-info"], children:
                     [
                         element("a", {classlist: ["skill-name"], text: data.skill_name}),
                         element("p", {classlist: ["skill-description"], text: data.description})
                     ]}),
-                element("div", {classlist: ["skill-data"], childern: 
+                element("div", {classlist: ["skill-data"], children:
                     [
-                        element("p", {classlist: ["skill-date"], childern: [
+                        element("p", {classlist: ["skill-date"], children: [
                             element("span", {text: `created at: ${new Date(data.created_at).toDateString()}`}),
                             element("br"),
                             element("span", {text: `updated at: ${new Date(data.updated_at).toDateString()}`})
