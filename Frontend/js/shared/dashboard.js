@@ -29,7 +29,13 @@ export function initializeDialog(buttonSelector, dialogSelector) {
         return
     }
 
-    button.addEventListener("click", () => dialog.showModal())
+    button.addEventListener("click", () => {
+        const errorFeedback = dialog.querySelector(".dialog-error")
+        if (errorFeedback) {
+            errorFeedback.textContent = ""
+        }
+        dialog.showModal()
+    })
 }
 
 export function activateLogout(){
@@ -62,9 +68,78 @@ export function activatetoggleAlert(){
 
 export function get_dialog_data(dialog_id){
     const dialog_box = document.querySelector(dialog_id)
-    if (dialog_box instanceof HTMLElement){
-        const name = dialog_box.querySelector("#name")?.value.trim()
-        const description = dialog_box.querySelector("#description")?.value.trim()
-        
+    if (!(dialog_box instanceof HTMLDialogElement)){
+        console.error(`Failed to get dialog data: ${dialog_id}`)
+        return null
     }
+
+    const name_input = dialog_box.querySelector("#name")
+    const description_input = dialog_box.querySelector("#description")
+    const error_feedback = dialog_box.querySelector(".dialog-error")
+
+    if (!(name_input instanceof HTMLInputElement) ||
+        !(description_input instanceof HTMLTextAreaElement)) {
+        console.error(`Dialog is missing its name or description field: ${dialog_id}`)
+        return null
+    }
+
+    const name = name_input.value.trim()
+    const description = description_input.value.trim()
+    const errors = []
+
+    name_input.setCustomValidity("")
+    description_input.setCustomValidity("")
+
+    if (name.length === 0) {
+        name_input.setCustomValidity("Name is required.")
+        errors.push("Name is required.")
+    }
+    else if (name.length > 400) {
+        name_input.setCustomValidity("Name must be 400 characters or fewer.")
+        errors.push("Name must be 400 characters or fewer.")
+    }
+
+    if (description.length === 0) {
+        description_input.setCustomValidity("Description is required.")
+        errors.push("Description is required.")
+    }
+    else if (description.length > 1000) {
+        description_input.setCustomValidity("Description must be 1,000 characters or fewer.")
+        errors.push("Description must be 1,000 characters or fewer.")
+    }
+
+    const date_input = dialog_box.querySelector("#deadline-date")
+    const time_input = dialog_box.querySelector("#deadline-time")
+
+    if (date_input instanceof HTMLInputElement &&
+        time_input instanceof HTMLInputElement) {
+        date_input.setCustomValidity("")
+        time_input.setCustomValidity("")
+
+        if (!date_input.value) {
+            date_input.setCustomValidity("Deadline date is required.")
+            errors.push("Deadline date is required.")
+        }
+
+        if (!time_input.value) {
+            time_input.setCustomValidity("Deadline time is required.")
+            errors.push("Deadline time is required.")
+        }
+
+    }
+
+    if (error_feedback) {
+        error_feedback.textContent = errors.join(" ")
+    }
+
+    if (errors.length > 0) {
+        const first_invalid_input = dialog_box.querySelector(":invalid")
+        if (first_invalid_input instanceof HTMLInputElement ||
+            first_invalid_input instanceof HTMLTextAreaElement) {
+            first_invalid_input.reportValidity()
+        }
+        return null
+    }
+
+    return [name, description]
 }

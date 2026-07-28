@@ -32,6 +32,13 @@ function updateProjectCard(project_data){
     }
 }
 
+function formatDeadline(deadline){
+    const parsed_deadline = new Date(deadline)
+    if (Number.isNaN(parsed_deadline.getTime())){
+        return "Invalid deadline"
+    }
+    return parsed_deadline.toLocaleString()
+}
 
 function renderTasks(task_data){
     const task_container = document.querySelector("#task-container")
@@ -70,7 +77,7 @@ function renderTasks(task_data){
                     // @ts-ignore
                     element("br"),
                     // @ts-ignore
-                    element("span", {text: `Deadline: ${new Date(task.deadline).toDateString()}`})
+                    element("span", {text: `Deadline: ${formatDeadline(task.deadline)}`})
                 ]})
             ]}),
             // @ts-ignore

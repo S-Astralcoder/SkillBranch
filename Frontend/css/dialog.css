@@ -11,7 +11,9 @@
 
 }
 
-.pop-model #name-box, #description-box {
+.pop-model #name-box,
+.pop-model #description-box,
+.pop-model #deadline-box > div {
     display: flex;
     flex-direction: column;
 
@@ -19,6 +21,22 @@
     padding-bottom: 10px;
 }
 
+.pop-model #deadline-box {
+    display: flex;
+    column-gap: 10px;
+}
+
+.pop-model #deadline-box > div {
+    flex: 1;
+    min-width: 0;
+}
+
+.pop-model .dialog-error {
+    min-height: 1em;
+    margin: 0 0 10px;
+    color: hsl(0, 80%, 65%);
+    font-size: 12px;
+}
 
 .pop-model #btn-box {
     display: flex;
