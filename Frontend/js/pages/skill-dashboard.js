@@ -4,7 +4,14 @@ import {
     redirectIfUnauthenticated
 } from "../shared/auth.js"
 import { API_BASE_URL, PAGE_URLS } from "../shared/config.js"
-import { activateLogout, activatetoggleAlert, initializeDashboardMenus, initializeDialog } from "../shared/dashboard.js"
+import {
+    activateLogout,
+    activatetoggleAlert,
+    get_dialog_data,
+    initializeDashboardMenus,
+    initializeDialog,
+    loadurgenttasks
+} from "../shared/dashboard.js"
 import { element } from "../shared/create_element.js"
 import { redirectOnExpiration } from "../shared/auth.js"
 
@@ -68,9 +75,40 @@ function initializeSkillSelection(){
 
 
 
+async function activateAddSkill(){
+    const skill_submit = document.querySelector("#submit-btn")
+    if (skill_submit){
+        skill_submit.addEventListener("click", async ()=>{
+            const dialog_data = get_dialog_data("#skill-dialog")
+            if (dialog_data === null) {
+                return
+            }
+            const [name, description] = dialog_data
+            const response = await fetch(`${API_BASE_URL}/skill/create_skill`, {
+                method: "POST",
+                headers: getAuthorizationHeaders(),
+                body: JSON.stringify({
+                    name: name,
+                    description: description
+                  })
+            })
+            if (redirectOnExpiration(response.status)) {
+                return
+            }
+            if (response.ok){
+                await fetchSkills()
+            }
+        })
+    }
+}
+
+
+
 initializeDashboardMenus()
 initializeDialog("#new-skill", "#skill-dialog")
 redirectIfUnauthenticated()
 fetchSkills()
 activateLogout()
 activatetoggleAlert()
+activateAddSkill()
+loadurgenttasks()

@@ -1,3 +1,5 @@
+import { element } from "./create_element.js"
+
 export function getFormElements() {
     const form = document.querySelector("#signup-form")
     const feedback = document.querySelector("#error-feedback")
@@ -19,8 +21,7 @@ export function renderErrors(feedback, errors) {
     feedback.replaceChildren()
 
     for (const error of errors) {
-        const message = document.createElement("p")
-        message.textContent = error
+        const message = element("p", {text: error})
         feedback.appendChild(message)
     }
 }
