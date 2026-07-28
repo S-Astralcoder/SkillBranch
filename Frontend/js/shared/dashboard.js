@@ -59,3 +59,12 @@ export function activatetoggleAlert(){
     })
 
 }
+
+export function get_dialog_data(dialog_id){
+    const dialog_box = document.querySelector(dialog_id)
+    if (dialog_box instanceof HTMLElement){
+        const name = dialog_box.querySelector("#name")?.value.trim()
+        const description = dialog_box.querySelector("#description")?.value.trim()
+        
+    }
+}
