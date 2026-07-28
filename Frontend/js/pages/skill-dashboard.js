@@ -4,7 +4,7 @@ import {
     redirectIfUnauthenticated
 } from "../shared/auth.js"
 import { API_BASE_URL, PAGE_URLS } from "../shared/config.js"
-import { initializeDashboardMenus, initializeDialog } from "../shared/dashboard.js"
+import { activateLogout, activatetoggleAlert, initializeDashboardMenus, initializeDialog } from "../shared/dashboard.js"
 import { element } from "../shared/create_element.js"
 import { redirectOnExpiration } from "../shared/auth.js"
 
@@ -58,7 +58,6 @@ async function renderSkills(skillData) {
 
 function initializeSkillSelection(){
     const skill_boxes = document.querySelectorAll(".skill-box")
-    console.info(skill_boxes)
     for (const skill of skill_boxes){
         skill.addEventListener("click", (event) => {
             sessionStorage.setItem("skill_id", event.currentTarget.querySelector(".skill-id").textContent)
@@ -73,3 +72,5 @@ initializeDashboardMenus()
 initializeDialog("#new-skill", "#skill-dialog")
 redirectIfUnauthenticated()
 fetchSkills()
+activateLogout()
+activatetoggleAlert()

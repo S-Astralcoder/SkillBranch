@@ -1,5 +1,5 @@
 import { getAuthorizationHeaders, redirectIfUnauthenticated } from "../shared/auth.js"
-import { initializeDashboardMenus, initializeDialog } from "../shared/dashboard.js"
+import { activateLogout, initializeDashboardMenus, initializeDialog } from "../shared/dashboard.js"
 import { API_BASE_URL } from "../shared/config.js"
 import { PAGE_URLS } from "../shared/config.js"
 import { redirectOnExpiration } from "../shared/auth.js"
@@ -113,3 +113,4 @@ async function renderProjectPage() {
 
 
 renderProjectPage()
+activateLogout()
