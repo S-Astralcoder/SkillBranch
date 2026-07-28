@@ -9,6 +9,8 @@
 
     <link rel="stylesheet" href="../css/dashboard.css">
     <link rel="stylesheet" href="../css/task_dashboard.css">
+    <link rel="stylesheet" href="../css/dialog.css">
+
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,7 +25,7 @@
     <script src="https://kit.fontawesome.com/fd488fa74c.js" crossorigin="anonymous"></script>
 
     <script src="../js/dashboard_utilty.js" defer></script>
-    <script src="../js/task_dashboard.js"></script>
+    <script src="../js/task_dashboard.js" defer></script>
 
 
 </head>
@@ -208,12 +210,12 @@
     </main>
     <dialog id="task-dialog" class="pop-model">
         <div id="name-box">
-            <label for="name">Skill Name</label>
+            <label for="name">Task Name</label>
             <input type="text" id="name">
         </div>
         <div id="btn-box">
             <button type="button" id="cancel-btn" onclick="document.querySelector('#task-dialog').close()">Cancel</button>
-            <button type="button" id="submit-btn">Submit</button>
+            <button type="button" id="submit-btn">Add</button>
         </div>
     </dialog>
 </body>

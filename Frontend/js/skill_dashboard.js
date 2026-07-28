@@ -1,6 +1,6 @@
 
-const create_task_btn = document.querySelector("#create-task")
-const skill_model = document.querySelector("#task-dialog")
+const create_skill_btn = document.querySelector("#new-skill")
+const skill_model = document.querySelector("#skill-dialog")
 
-create_task_btn.addEventListener("click", () => {skill_model.showModal()})
+create_skill_btn.addEventListener("click", () => {skill_model.showModal()})
 
