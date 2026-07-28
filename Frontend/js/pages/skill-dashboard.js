@@ -7,6 +7,8 @@ import { API_BASE_URL, PAGE_URLS } from "../shared/config.js"
 import { initializeDashboardMenus, initializeDialog } from "../shared/dashboard.js"
 import { element } from "../shared/create_element.js"
 
+
+// Responsible for loading skills
 async function fetchSkills() {
     const response = await fetch(`${API_BASE_URL}/skill/skills`, {
         headers: getAuthorizationHeaders()
@@ -24,7 +26,7 @@ async function fetchSkills() {
     }
 }
 
-function renderSkills(skillData) {
+async function renderSkills(skillData) {
     const skill_container = document.querySelector("#skill-container")
     skill_container.replaceChildren()
     for (const data of skillData){
@@ -49,23 +51,23 @@ function renderSkills(skillData) {
             skill_container.appendChild(skill_box)
         }
     }
+    initializeSkillSelection()
 }
 
-/*
-<section class="skill-box">
-    <div class="skill-info">
-        <a href="" class="skill-name">Skill Name</a>
-        <p class="skill-description">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum nobis quibusdam ab quos consequatur perspiciatis </p>
-    </div>
-    <div class="skill-data">
-        <p class="skill-date">Created At: <br>Updated At: </p>
-    </div>
-    <a href="" class="skill-id">#id:dhashdjh32hjdaj34had</a>
-</section>
 
 
 
-*/
+function initializeSkillSelection(){
+    const skill_boxes = document.querySelectorAll(".skill-box")
+    console.info(skill_boxes)
+    for (const skill of skill_boxes){
+        skill.addEventListener("click", (event) => {
+            sessionStorage.setItem("skill_id", event.currentTarget.querySelector(".skill-id").textContent)
+            window.location.href = PAGE_URLS.project_dashboard
+        })
+    }
+}
+
 
 
 initializeDashboardMenus()

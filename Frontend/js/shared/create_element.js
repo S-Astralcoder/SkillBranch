@@ -1,7 +1,7 @@
 export function element(tag ="" , {id = "", text = "", classlist = [], atrributes = {} , childern = []} = {}) {
     const block = document.createElement(tag)
     if (block instanceof HTMLElement) {
-        block.id = id
+        if (id){block.id = id}
         if (text){
             block.textContent = text
         }
