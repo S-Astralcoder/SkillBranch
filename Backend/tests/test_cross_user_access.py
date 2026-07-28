@@ -33,7 +33,7 @@ def assert_user_only_lists_own_data(
 
     tasks = request(
         headers,
-        "POST",
+        "GET",
         "/task/near_deadline_tasks",
     ).json()
     assert {task["id"] for task in tasks} == {own_tree["task"]["id"]}
@@ -68,7 +68,7 @@ def assert_user_cannot_access_tree(
                 "description": "Must not be updated",
             },
         ),
-        ("PUT", "/skill/delete_skill", {"id": skill_id}),
+        ("DELETE", "/skill/delete_skill", {"id": skill_id}),
         (
             "POST",
             "/project/create_project",

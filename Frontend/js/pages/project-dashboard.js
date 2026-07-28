@@ -203,7 +203,7 @@ async function editSkill(){
 
 async function deleteSkill(){
     const response = await fetch(`${API_BASE_URL}/skill/delete_skill`, {
-        method: "PUT",
+        method: "DELETE",
         headers: getAuthorizationHeaders(),
         body: JSON.stringify({id: skill_id})
     })

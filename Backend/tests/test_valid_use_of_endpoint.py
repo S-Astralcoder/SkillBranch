@@ -173,7 +173,7 @@ def test_crud_workflow_from_skills_to_tasks():
         )
         assert toggled_task["completed"] is True
 
-        near_deadline_tasks = request("POST", "/task/near_deadline_tasks")
+        near_deadline_tasks = request("GET", "/task/near_deadline_tasks")
         assert {task["id"] for task in near_deadline_tasks} == {
             resource["task"]["id"] for resource in resources[1:]
         }
@@ -205,7 +205,7 @@ def test_crud_workflow_from_skills_to_tasks():
             assert deleted_project["id"] == project["id"]
 
             deleted_skill = request(
-                "PUT",
+                "DELETE",
                 "/skill/delete_skill",
                 {"id": skill["id"]},
             )

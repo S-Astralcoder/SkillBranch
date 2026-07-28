@@ -100,7 +100,7 @@ def assert_malformed_ids_rejected(
             (f"/task/task/{tree['skill']['id']}/{tree['project']['id']}/not-a-uuid"),
             None,
         ),
-        ("PUT", "/skill/delete_skill", {"id": "not-a-uuid"}),
+        ("DELETE", "/skill/delete_skill", {"id": "not-a-uuid"}),
         (
             "DELETE",
             "/project/delete_project",
@@ -244,7 +244,7 @@ def delete_skill_and_assert_api_inaccessible(
 ) -> None:
     request(
         headers,
-        "PUT",
+        "DELETE",
         "/skill/delete_skill",
         {"id": tree["skill"]["id"]},
     )

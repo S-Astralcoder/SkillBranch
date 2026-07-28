@@ -190,7 +190,7 @@ async def toggle_task(
     return task
 
 
-@task_router.post("/near_deadline_tasks")
+@task_router.get("/near_deadline_tasks")
 async def get_near_deadline_tasks(
     user: Annotated[User, Depends(get_current_active_user)],
     db_session: Annotated[Session, Depends(get_database_session)],

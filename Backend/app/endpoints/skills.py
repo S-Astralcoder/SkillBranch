@@ -100,7 +100,7 @@ async def update_skill(
     return skill
 
 
-@skill_router.put("/delete_skill")
+@skill_router.delete("/delete_skill")
 async def delete_skill(
     skill_data: SkillIdRequest,
     user: Annotated[User, Depends(get_current_active_user)],

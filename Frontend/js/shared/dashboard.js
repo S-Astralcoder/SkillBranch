@@ -152,7 +152,7 @@ export async function loadurgenttasks(){
     }
 
     const response = await fetch(`${API_BASE_URL}/task/near_deadline_tasks`, {
-        method: "POST",
+        method: "GET",
         headers: getAuthorizationHeaders()
     })
     if (redirectOnExpiration(response.status)) {
