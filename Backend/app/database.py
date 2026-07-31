@@ -6,7 +6,7 @@ from app.models import Base
 
 DATABASE_URL = settings.DATABASE_URL
 
-engine = create_engine(DATABASE_URL, echo=True)
+engine = create_engine(DATABASE_URL)
 
 
 @event.listens_for(engine, "connect")
