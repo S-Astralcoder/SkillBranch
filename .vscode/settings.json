@@ -2,7 +2,7 @@
     "python.terminal.activateEnvInCurrentTerminal": true,
     "python.terminal.activateEnvironment": true,
     "python.terminal.useEnvFile": true,
-    "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
+    "python.defaultInterpreterPath": "${workspaceFolder}/Backend/.venv/Scripts/python.exe",
     "cSpell.words": [
         "blazebuster",
         "onupdate",
