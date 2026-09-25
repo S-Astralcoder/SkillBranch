@@ -18,13 +18,12 @@ test_user = {
 }
 
 
+from sqlalchemy import text
+from app.database import engine
+
 def clean_up_new_user_created():
-    connection = sqlite3.connect(
-        r"C:\Users\blaze\Work Space\Projects\Projects\SkillBranch\Backend\database\skillbranch.db"
-    )
-    connection.execute("DELETE FROM user WHERE email = ?", (test_user["email"],))
-    connection.commit()
-    connection.close()
+    with engine.begin() as connection:
+        connection.execute(text("DELETE FROM user WHERE email = :email"), {"email": test_user["email"]})
 
 
 def test_jwt_session_expired_rejection(monkeypatch: pytest.MonkeyPatch):

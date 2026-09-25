@@ -1,0 +1,27 @@
+# Virtual Environment
+.venv/
+
+# Environment files
+.env
+.Env
+
+# Workspaces and scratch
+_workspace/
+
+# Python cache and builds
+__pycache__/
+*.py[cod]
+*$py.class
+build/
+dist/
+*.egg-info/
+
+# Pytest & tool caches
+.pytest_cache/
+.ruff_cache/
+
+# Local Database
+database/
+
+# Node / JS
+node_modules/

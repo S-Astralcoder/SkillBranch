@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -13,10 +15,10 @@ origins = ["http://127.0.0.1:5500", "http://localhost:5500"]
 
 app.add_middleware(CORSMiddleware, allow_origins=origins, allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
 
-app.mount(path="/", app=StaticFiles(directory="../../Frontend", html=True), name="static")
-
-
 app.include_router(user_router)
 app.include_router(skill_router)
 app.include_router(project_router)
 app.include_router(task_router)
+
+static_dir = Path(__file__).resolve().parent.parent / "static"
+app.mount(path="/", app=StaticFiles(directory=str(static_dir), html=True), name="static")
