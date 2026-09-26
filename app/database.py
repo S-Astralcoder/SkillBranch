@@ -11,9 +11,10 @@ engine = create_engine(DATABASE_URL)
 
 @event.listens_for(engine, "connect")
 def enable_sqlite_foreign_keys(dbapi_connection, _):
-    cursor = dbapi_connection.cursor()
-    cursor.execute("PRAGMA foreign_keys=ON")
-    cursor.close()
+    if settings.DATABASE_URL.startswith("sqlite:///"):
+        cursor = dbapi_connection.cursor()
+        cursor.execute("PRAGMA foreign_keys=ON")
+        cursor.close()
 
 
 Base.metadata.create_all(engine)

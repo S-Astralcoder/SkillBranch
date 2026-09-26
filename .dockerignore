@@ -1,0 +1,15 @@
+# Ignore all dotfiles and dotfolders (.venv, .env, .git, .pytest_cache, .vscode, etc.)
+.[!.]*
+
+# Ignore Python bytecode and runtime caches
+__pycache__
+*.py[cod]
+*$py.class
+
+# Ignore test suite and local documentation
+tests/
+README.md
+LICENSE
+
+# Ignore local sqlite database so it doesn't get baked into the image
+database/*.db
