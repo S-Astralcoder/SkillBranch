@@ -25,4 +25,4 @@ ENV PATH="/app/.venv/bin:$PATH"
 
 EXPOSE ${PORT}
 
-CMD [ "uvicorn" , "app.app:app", "--host", "0.0.0.0", "--port", "${PORT}"]
+CMD uvicorn app.app:app --host 0.0.0.0 --port ${PORT}
